@@ -1,0 +1,53 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import { IconButton, useTheme } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { bottomTabbarHeight } from '../lib/constants';
+import EncryptText from '../views/EncryptText';
+import Settings from '../views/Settings';
+import { routeNames } from './routes';
+
+const Tab = createBottomTabNavigator();
+
+function BottomTab() {
+  const theme = useTheme();
+  const { bottom } = useSafeAreaInsets();
+
+  function getIconName(routeName, focused) {
+    if (routeName === routeNames.text) {
+      return 'format-text-variant';
+    } else if (routeName === routeNames.settings) {
+      return focused ? 'cards-heart' : 'cards-heart-outline';
+    } else {
+      return null;
+    }
+  }
+
+  function getIcon(focused, color, routeName) {
+    return <IconButton icon={getIconName(routeName, focused)} iconColor={color} />;
+  }
+
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarIcon: ({ focused, color }) => getIcon(focused, color, route.name),
+        tabBarLabel: () => null,
+        tabBarActiveTintColor: theme.colors.error,
+        tabBarInactiveTintColor: theme.colors.secondary,
+        tabBarHideOnKeyboard: true,
+        tabBarStyle: {
+          paddingBottom: bottom,
+          height: bottomTabbarHeight + bottom,
+          backgroundColor: theme.colors.background,
+        },
+      })}
+    >
+      <Tab.Screen name={routeNames.text} component={EncryptText} />
+      <Tab.Screen name={routeNames.settings} component={Settings} />
+    </Tab.Navigator>
+  );
+}
+
+export default BottomTab;
