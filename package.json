@@ -42,7 +42,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "watchman watch-del '/Users/peng/peng/Encrypt37' ; watchman watch-project '/Users/peng/peng/Encrypt37' && react-native start",
-    "build-android-apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
+    "build-android-apk": "npm run bump-build-numbers && cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "build-android": "npm run bump-build-numbers && cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..",
     "bump-build-numbers": "node ./scripts/bump-build-numbers.js",
     "bump-version": "node ./scripts/bump-version.js"
