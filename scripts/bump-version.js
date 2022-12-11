@@ -37,7 +37,7 @@ const lockContent = JSON.stringify({ ...lock, version }, null, 2);
 writeFileSync(lockPath, `${lockContent}\n`);
 console.log(`Version written to ${lockPath}`);
 
-const plistPath = join(__dirname, '../ios/PreCloud/Info.plist');
+const plistPath = join(__dirname, '../ios/Encrypt37/Info.plist');
 const infoPlist = plist.parse(String(readFileSync(plistPath)));
 const content = plist.stringify({
   ...infoPlist,
