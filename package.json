@@ -10,6 +10,7 @@
     "@react-navigation/native-stack": "6.9.5",
     "react": "18.1.0",
     "react-native": "0.70.6",
+    "react-native-device-info": "10.3.0",
     "react-native-fast-openpgp": "2.5.1",
     "react-native-paper": "5.0.1",
     "react-native-safe-area-context": "4.4.1",
@@ -40,7 +41,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
+    "start": "watchman watch-del '/Users/peng/peng/Encrypt37' ; watchman watch-project '/Users/peng/peng/Encrypt37' && react-native start",
     "build-android-apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "build-android": "npm run bump-build-numbers && cd android && ./gradlew clean && ./gradlew bundleRelease && cd ..",
     "bump-build-numbers": "node ./scripts/bump-build-numbers.js",
