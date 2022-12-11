@@ -14,7 +14,7 @@ console.log(`Android build number ${newAndroidNumber} is written to ${gradlePath
 
 // bump ios build number
 const plist = require('simple-plist');
-const plistPath = join(__dirname, '../ios/PreCloud/Info.plist');
+const plistPath = join(__dirname, '../ios/Encrypt37/Info.plist');
 const infoPlist = plist.parse(String(readFileSync(plistPath)));
 const newIOSNumber = ((+infoPlist.CFBundleVersion || 0) + 1).toString();
 const content = plist.stringify({
