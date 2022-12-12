@@ -8,7 +8,7 @@ import { textActionCreators, textActionTypes } from './textActions';
 
 function* hanldeEncryptTextPressed({ payload: { text } }) {
   const publicKey = yield select(keypairSelectors.getPublicKey);
-  const { data } = yield call(encryptText, text, publicKey);
+  const { data } = yield call(encryptText, text.trim(), publicKey);
   if (data) {
     yield put(textActionCreators.setEncryptedText(data));
     yield call(Keyboard.dismiss);
@@ -19,7 +19,7 @@ function* hanldeEncryptTextPressed({ payload: { text } }) {
 
 function* hanldeDecryptTextPressed({ payload: { encryptedText } }) {
   const privateKey = yield select(keypairSelectors.getPrivateKey);
-  const { data, error } = yield call(decryptText, encryptedText, privateKey);
+  const { data, error } = yield call(decryptText, encryptedText.trim(), privateKey);
   if (error) {
     yield put(toastActionCreators.setToast('Decryption failed.'));
   } else {

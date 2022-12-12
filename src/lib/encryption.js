@@ -1,4 +1,9 @@
+import { format } from 'date-fns';
 import OpenPGP, { Cipher } from 'react-native-fast-openpgp';
+import { asyncForEach } from './array';
+import { encrypt37Extension } from './constants';
+import { cachePath, deleteFile, extractFileNameAndExtension, statFile } from './file';
+import { isIOS } from './helpers';
 
 function unarmor(encryptedText) {
   return encryptedText.split('openpgp-mobile')[1].split('-----END')[0].trim();
@@ -35,6 +40,16 @@ ${removePrefix(unarmored)}
 -----END PGP PUBLIC KEY BLOCK-----`;
 }
 
+export const ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES = 50;
+export const ENCRYPTION_SIZE_LIMIT_IN_BYTES = ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES * 1024 * 1024;
+
+export const encryptionStatus = {
+  SUCCEEDED: 'SUCCEEDED',
+  FAILED: 'FAILED',
+  TOO_LARGE: 'TOO_LARGE',
+  WRONG_FILE: 'WRONG_FILE',
+};
+
 export async function generateKeyPair() {
   const generated = await OpenPGP.generate({
     keyOptions: { cipher: Cipher.AES256 },
@@ -67,4 +82,128 @@ export async function decryptText(encryptedText, privateKey) {
   } catch (error) {
     return { data: null, error };
   }
+}
+
+async function encryptFile(inputPath, outputPath, publicKey) {
+  try {
+    await OpenPGP.encryptFile(inputPath, outputPath, publicKey);
+    return true;
+  } catch (e) {
+    console.log('encrypt file failed', e);
+    return false;
+  }
+}
+
+async function decryptFile(inputPath, outputPath, privateKey) {
+  try {
+    await OpenPGP.decryptFile(inputPath, outputPath, privateKey);
+    return true;
+  } catch (e) {
+    console.log('decrypt file failed', e);
+    return false;
+  }
+}
+
+function getEncryptedFileName(fileName) {
+  const { extension } = extractFileNameAndExtension(fileName);
+  return isIOS()
+    ? `${format(new Date(), 'yyyyMMdd_HHmmss_SSS')}${extension}.${encrypt37Extension}`
+    : `${fileName}.${encrypt37Extension}`;
+}
+
+function getOriginalFileName(encryptedFileName) {
+  const parts = encryptedFileName.split('.');
+  parts.pop();
+  return parts.join('.');
+}
+
+export async function encryptFiles(files, publicKey) {
+  if (!files?.length) {
+    return [];
+  }
+
+  const encryptedFiles = [];
+  await asyncForEach(files, async file => {
+    const { name, path, size } = file;
+    if (size > ENCRYPTION_SIZE_LIMIT_IN_BYTES) {
+      encryptedFiles.push({
+        name,
+        path,
+        size,
+        status: encryptionStatus.TOO_LARGE,
+      });
+      return;
+    }
+
+    const inputPath = path;
+    const encryptedName = getEncryptedFileName(name);
+    const outputPath = `${cachePath}/${encryptedName}`;
+    await deleteFile(outputPath);
+    const success = await encryptFile(inputPath, outputPath, armorPublicKey(publicKey));
+
+    if (success) {
+      const { size: newSize } = await statFile(outputPath);
+      encryptedFiles.push({
+        name: encryptedName,
+        path: outputPath,
+        size: newSize,
+        status: encryptionStatus.SUCCEEDED,
+      });
+    } else {
+      encryptedFiles.push({
+        name,
+        path,
+        size,
+        status: encryptionStatus.FAILED,
+      });
+    }
+  });
+
+  return encryptedFiles;
+}
+
+export async function decryptFiles(files, privateKey) {
+  if (!files?.length) {
+    return [];
+  }
+
+  const decryptedFiles = [];
+
+  await asyncForEach(files, async file => {
+    const { name, path, size } = file;
+    if (!name.endsWith(encrypt37Extension)) {
+      decryptedFiles.push({
+        name,
+        path,
+        size,
+        status: encryptionStatus.WRONG_FILE,
+      });
+      return;
+    }
+
+    const inputPath = path;
+    const decryptedName = getOriginalFileName(name);
+    const outputPath = `${cachePath}/${decryptedName}`;
+    await deleteFile(outputPath);
+    const success = await decryptFile(inputPath, outputPath, armorPrivateKey(privateKey));
+
+    if (success) {
+      const { size: newSize } = await statFile(outputPath);
+      decryptedFiles.push({
+        name: decryptedName,
+        path: outputPath,
+        size: newSize,
+        status: encryptionStatus.SUCCEEDED,
+      });
+    } else {
+      decryptedFiles.push({
+        name,
+        path,
+        size,
+        status: encryptionStatus.FAILED,
+      });
+    }
+  });
+
+  return decryptedFiles;
 }

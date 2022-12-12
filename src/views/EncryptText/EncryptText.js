@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, IconButton, Text, TextInput } from 'react-native-paper';
+import { Button, Divider, IconButton, Text, TextInput } from 'react-native-paper';
 
 import Box from '../../components/Box';
 import ScreenWrapper from '../../components/ScreenWrapper';
@@ -11,13 +11,13 @@ export default function EncryptText({
   encryptedText,
   onTextChange,
   onEncryptedTextChange,
-  onDeleteKeypair,
   onEncryptText,
   onDecryptText,
   onToast,
 }) {
   return (
     <ScreenWrapper title="Encrypt text">
+      <Text variant="headlineLarge">Encryption</Text>
       <TextInput
         label="Text"
         multiline
@@ -29,7 +29,7 @@ export default function EncryptText({
 
       <Box direction="row" align="center">
         <Button
-          mode="outlined"
+          mode="contained"
           icon="chevron-down"
           contentStyle={{ flexDirection: 'row-reverse' }}
           disabled={!text}
@@ -65,11 +65,14 @@ export default function EncryptText({
         />
       </Box>
 
-      <Spacer size={24} />
+      <Spacer />
+      <Divider />
+      <Spacer />
 
+      <Text variant="headlineLarge">Decryption</Text>
       <Box direction="row" align="center">
         <Button
-          mode="outlined"
+          mode="contained"
           icon="chevron-up"
           contentStyle={{ flexDirection: 'row-reverse' }}
           disabled={!encryptedText}

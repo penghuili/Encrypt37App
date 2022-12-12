@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 
-import { keypairActionCreators } from '../../store/keypair/keypairActions';
 import { textActionCreators } from '../../store/text/textActions';
 import { textSelectors } from '../../store/text/textSelectors';
 import { toastActionCreators } from '../../store/toast/toastActions';
@@ -14,7 +13,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   onTextChange: textActionCreators.setText,
   onEncryptedTextChange: textActionCreators.setEncryptedText,
-  onDeleteKeypair: keypairActionCreators.deleteKeypairPressed,
   onEncryptText: textActionCreators.encryptTextPressed,
   onDecryptText: textActionCreators.decryptTextPressed,
   onToast: toastActionCreators.setToast,

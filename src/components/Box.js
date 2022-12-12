@@ -4,6 +4,7 @@ import { View } from 'react-native';
 function Box({
   children,
   direction,
+  wrap,
   w,
   h,
   px,
@@ -25,6 +26,7 @@ function Box({
     <View
       style={[
         direction !== undefined && { flexDirection: direction },
+        wrap !== undefined && { flexWrap: wrap ? 'wrap' : 'nowrap' },
         w !== undefined && { width: Number.isNaN(+w) ? w : +w },
         h !== undefined && { height: Number.isNaN(+h) ? h : +h },
         px !== undefined && { paddingLeft: +px, paddingRight: +px },
