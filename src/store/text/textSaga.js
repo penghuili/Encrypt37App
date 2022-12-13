@@ -7,7 +7,7 @@ import { toastActionCreators } from '../toast/toastActions';
 import { textActionCreators, textActionTypes } from './textActions';
 
 function* hanldeEncryptTextPressed({ payload: { text } }) {
-  const publicKey = yield select(keypairSelectors.getPublicKey);
+  const publicKey = yield select(keypairSelectors.getActivePublicKey);
   const { data } = yield call(encryptText, text.trim(), publicKey);
   if (data) {
     yield put(textActionCreators.setEncryptedText(data));

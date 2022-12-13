@@ -5,7 +5,7 @@ import { settingsActionCreators } from '../../store/settings/settingsActions';
 import ActivePublicKey from './ActivePublicKey';
 
 const mapStateToProps = state => ({
-  activePublicKey: keypairSelectors.getActivePublicKey(state) || 'Myself',
+  activePublicKey: keypairSelectors.getActivePublicKeyLabel(state) || 'Myself',
 });
 
 const mapDispatchToProps = {

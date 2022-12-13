@@ -138,7 +138,7 @@ function* handleDeletePublicKeyPressed({ payload: { label } }) {
   yield call(LocalStorage.set, LocalStorageKeys.publicKeys, newKeys);
   yield put(keypairActionCreators.setPublicKeys(newKeys));
 
-  const activePublicKey = yield select(keypairSelectors.getActivePublicKey);
+  const activePublicKey = yield select(keypairSelectors.getActivePublicKeyLabel);
   if (label === activePublicKey) {
     yield call(LocalStorage.remove, LocalStorageKeys.activePublicKey);
     yield put(keypairActionCreators.setActivePublicKey(null));

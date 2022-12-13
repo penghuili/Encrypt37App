@@ -23,7 +23,7 @@ function* handleEncryptPressed({ payload: { files } }) {
     return;
   }
 
-  const publicKey = yield select(keypairSelectors.getPublicKey);
+  const publicKey = yield select(keypairSelectors.getActivePublicKey);
   const encrypted = yield call(encryptFiles, files, publicKey);
   yield put(fileActionCreators.setEncryptedFiles(encrypted));
 }

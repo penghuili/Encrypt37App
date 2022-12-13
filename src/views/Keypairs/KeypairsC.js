@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
   publicKey: keypairSelectors.getPublicKey(state),
   privateKey: keypairSelectors.getPrivateKey(state),
   publicKeys: keypairSelectors.getPublicKeys(state),
-  activePublicKey: keypairSelectors.getActivePublicKey(state),
+  activePublicKey: keypairSelectors.getActivePublicKeyLabel(state),
 });
 
 const mapDispatchToProps = {
