@@ -17,7 +17,8 @@ export default function EncryptText({
 }) {
   return (
     <ScreenWrapper title="Encrypt text">
-      <Text variant="headlineLarge">Encryption</Text>
+      <Text variant="headlineLarge">Encrypt</Text>
+      <Spacer size={8} />
       <TextInput
         label="Text"
         multiline
@@ -69,7 +70,8 @@ export default function EncryptText({
       <Divider />
       <Spacer />
 
-      <Text variant="headlineLarge">Decryption</Text>
+      <Text variant="headlineLarge">Decrypt</Text>
+      <Spacer size={8} />
       <Box direction="row" align="center">
         <Button
           mode="contained"

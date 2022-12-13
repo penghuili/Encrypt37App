@@ -1,24 +1,24 @@
+import { useIsFocused } from '@react-navigation/native';
 import React from 'react';
 import { Image, Pressable } from 'react-native';
-import { Button, Divider, IconButton, List, Text, useTheme } from 'react-native-paper';
+import { Button, Divider, IconButton, List, Text } from 'react-native-paper';
 
 import Box from '../../components/Box';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
-import { encryptionStatus, ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES } from '../../lib/encryption';
+import { ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES, encryptionStatus } from '../../lib/encryption';
+import AddFile from './components/AddFile';
 
 export default function EncryptFile({
   pickedFiles,
   encryptedFiles,
-  onTakePhoto,
-  onPickImages,
-  onPickFiles,
-  onPickEncryptedFiles,
   onEncrypt,
   onDecrypt,
   onShare,
+  onClearPicked,
+  onClearEncrypted,
 }) {
-  const theme = useTheme();
+  const isFocused = useIsFocused();
 
   function renderDescription(file) {
     switch (file.status) {
@@ -34,41 +34,20 @@ export default function EncryptFile({
   }
 
   const hasPickedFiles = !!pickedFiles.images.length || !!pickedFiles.files.length;
+  const hasEncryptedFiles = !!encryptedFiles?.length;
   return (
     <ScreenWrapper title="Encrypt file">
-      <Text variant="headlineLarge">Encryption</Text>
+      <Text variant="headlineLarge">Encrypt</Text>
       <Text>Pick files to encrypt.</Text>
       <Spacer />
-      <Box direction="row">
-        <IconButton
-          mode="outlined"
-          icon="camera"
-          iconColor={theme.colors.primary}
-          onPress={onTakePhoto}
-        />
-        <IconButton
-          mode="outlined"
-          icon="image"
-          iconColor={theme.colors.primary}
-          onPress={onPickImages}
-        />
-        <IconButton
-          mode="outlined"
-          icon="file-multiple"
-          iconColor={theme.colors.primary}
-          onPress={onPickFiles}
-        />
-      </Box>
 
       {hasPickedFiles && (
         <>
-          <Spacer />
-
           <Box wrap direction="row">
             {pickedFiles.images.map(image => (
               <Pressable key={image.name} onPress={() => onShare(image)}>
                 <Image
-                  source={{ uri: image.path }}
+                  source={{ uri: `file://${image.path}` }}
                   style={{ width: 100, height: 100, marginRight: 4, marginBottom: 4 }}
                 />
               </Pressable>
@@ -83,37 +62,44 @@ export default function EncryptFile({
           ))}
 
           <Spacer />
-          <Box>
-            <Button
-              mode="contained"
-              icon="chevron-down"
-              contentStyle={{ flexDirection: 'row-reverse' }}
-              disabled={!hasPickedFiles}
-              onPress={() => onEncrypt([...pickedFiles.images, ...pickedFiles.files])}
-            >
-              Encrypt
-            </Button>
-          </Box>
         </>
       )}
+
+      <Box direction="row" align="center">
+        <Button
+          mode="contained"
+          icon="chevron-down"
+          contentStyle={{ flexDirection: 'row-reverse' }}
+          disabled={!hasPickedFiles}
+          onPress={() => onEncrypt([...pickedFiles.images, ...pickedFiles.files])}
+        >
+          Encrypt
+        </Button>
+        <IconButton icon="close" disabled={!hasPickedFiles} onPress={onClearPicked} />
+      </Box>
 
       <Spacer />
       <Divider />
       <Spacer />
 
-      <Text variant="headlineLarge">Decryption</Text>
+      <Text variant="headlineLarge">Decrypt</Text>
       <Text>Pick files to decrypt. Only pick files that end with .e37</Text>
       <Spacer />
-      <Box>
-        <IconButton
-          mode="outlined"
-          icon="file-multiple"
-          iconColor={theme.colors.primary}
-          onPress={onPickEncryptedFiles}
-        />
+
+      <Box direction="row" align="center">
+        <Button
+          mode="contained"
+          icon="chevron-up"
+          contentStyle={{ flexDirection: 'row-reverse' }}
+          disabled={!hasEncryptedFiles}
+          onPress={() => onDecrypt(encryptedFiles)}
+        >
+          Decrypt
+        </Button>
+        <IconButton icon="close" disabled={!hasEncryptedFiles} onPress={onClearEncrypted} />
       </Box>
 
-      {!!encryptedFiles?.length && (
+      {hasEncryptedFiles && (
         <>
           {encryptedFiles.map(file => (
             <List.Item
@@ -127,21 +113,11 @@ export default function EncryptFile({
               }
             />
           ))}
-
-          <Spacer />
-          <Box>
-            <Button
-              mode="contained"
-              icon="chevron-up"
-              contentStyle={{ flexDirection: 'row-reverse' }}
-              disabled={!encryptedFiles?.length}
-              onPress={() => onDecrypt(encryptedFiles)}
-            >
-              Decrypt
-            </Button>
-          </Box>
         </>
       )}
+
+      <Spacer size={60} />
+      <AddFile show={isFocused} />
     </ScreenWrapper>
   );
 }

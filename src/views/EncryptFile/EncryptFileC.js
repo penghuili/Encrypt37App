@@ -10,13 +10,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onTakePhoto: fileActionCreators.takePhotoPressed,
-  onPickImages: fileActionCreators.loadImageLibraryPressed,
-  onPickFiles: fileActionCreators.pickOriginalFilesPressed,
-  onPickEncryptedFiles: fileActionCreators.pickEncryptedFilesPressed,
   onEncrypt: fileActionCreators.encryptPressed,
   onDecrypt: fileActionCreators.decryptPressed,
   onShare: fileActionCreators.shareFilePressed,
+  onClearPicked: fileActionCreators.clearPickedFilesPressed,
+  onClearEncrypted: fileActionCreators.clearEncryptedFilesPressed,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EncryptFile);
