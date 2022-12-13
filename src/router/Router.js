@@ -2,7 +2,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
 import LoadingScreen from '../components/LoadingScreen';
-import EncryptFile from '../views/EncryptFile';
+import AddPublicKey from '../views/AddPublicKey';
+import FullKey from '../views/FullKey';
+import Keypairs from '../views/Keypairs';
 import BottomTab from './BottomTab';
 import { routeNames } from './routes';
 import SetupKeypair from './SetupKeypair';
@@ -23,7 +25,9 @@ function Router({ isPending, hasKeypair }) {
       <NavStack.Screen name="BottomTab" component={BottomTab} />
 
       <NavStack.Group screenOptions={{ headerShown: false }}>
-        <NavStack.Screen name={routeNames.file} component={EncryptFile} />
+        <NavStack.Screen name={routeNames.keypairs} component={Keypairs} />
+        <NavStack.Screen name={routeNames.fullKey} component={FullKey} />
+        <NavStack.Screen name={routeNames.addPublicKey} component={AddPublicKey} />
       </NavStack.Group>
     </NavStack.Navigator>
   );

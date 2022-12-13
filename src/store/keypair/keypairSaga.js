@@ -1,6 +1,6 @@
 import { all, call, fork, put, select, takeLatest } from 'redux-saga/effects';
 
-import { decryptText, encryptText, generateKeyPair } from '../../lib/encryption';
+import { decryptText, encryptText, generateKeyPair, isValidPublicKey } from '../../lib/encryption';
 import { LocalStorage, LocalStorageKeys } from '../../lib/localstorage';
 import { navigationRef } from '../../router/navigationRef';
 import { routeNames } from '../../router/routes';
@@ -17,6 +17,16 @@ function* initApp() {
   const publicKey = yield call(LocalStorage.get, LocalStorageKeys.publicKey);
   if (publicKey) {
     yield put(keypairActionCreators.setPublicKey(publicKey.trim()));
+  }
+
+  const publicKeys = yield call(LocalStorage.get, LocalStorageKeys.publicKeys);
+  if (publicKeys?.length) {
+    yield put(keypairActionCreators.setPublicKeys(publicKeys));
+  }
+
+  const activePublicKey = yield call(LocalStorage.get, LocalStorageKeys.activePublicKey);
+  if (activePublicKey) {
+    yield put(keypairActionCreators.setActivePublicKey(activePublicKey));
   }
 
   const hasDoneBackup = yield call(LocalStorage.get, LocalStorageKeys.hasDoneBackup);
@@ -82,9 +92,13 @@ function* handleGenerateKeypairPressed() {
 function* handleDeleteKeypairPressed() {
   yield call(LocalStorage.remove, LocalStorageKeys.privateKey);
   yield call(LocalStorage.remove, LocalStorageKeys.publicKey);
+  yield call(LocalStorage.remove, LocalStorageKeys.publicKeys);
+  yield call(LocalStorage.remove, LocalStorageKeys.activePublicKey);
   yield call(LocalStorage.remove, LocalStorageKeys.hasDoneBackup);
   yield put(keypairActionCreators.setPrivateKey(''));
   yield put(keypairActionCreators.setPublicKey(''));
+  yield put(keypairActionCreators.setPublicKeys([]));
+  yield put(keypairActionCreators.setActivePublicKey(null));
   yield put(keypairActionCreators.setBackup(false));
 
   yield put(toastActionCreators.setToast('Key pair is deleted.'));
@@ -93,6 +107,41 @@ function* handleDeleteKeypairPressed() {
 function* handleFinishBackupPressed() {
   yield call(LocalStorage.set, LocalStorageKeys.hasDoneBackup, true);
   yield put(keypairActionCreators.setBackup(true));
+}
+
+function* handleKeyPressed({ payload: { label, value } }) {
+  yield call(navigationRef.navigate, routeNames.fullKey, { label, value });
+}
+
+function* handleAddPublicKeyPressed() {
+  yield call(navigationRef.navigate, routeNames.addPublicKey);
+}
+
+function* handleSavePublicKeyPressed({ payload: { label, publicKey } }) {
+  const trimmedPublicKey = publicKey.trim();
+  const isValid = yield call(isValidPublicKey, trimmedPublicKey);
+  if (!isValid) {
+    yield put(toastActionCreators.setToast('Public key is invalid'));
+    return;
+  }
+
+  const publicKeys = yield select(keypairSelectors.getPublicKeys);
+  const newKeys = [...publicKeys, { label: label.trim(), publicKey: trimmedPublicKey }];
+  yield call(LocalStorage.set, LocalStorageKeys.publicKeys, newKeys);
+  yield put(keypairActionCreators.setPublicKeys(newKeys));
+  yield call(navigationRef.goBack);
+}
+
+function* handleDeletePublicKeyPressed({ payload: { label } }) {
+  const publicKeys = yield select(keypairSelectors.getPublicKeys);
+  const newKeys = publicKeys.filter(p => p.label !== label);
+  yield call(LocalStorage.set, LocalStorageKeys.publicKeys, newKeys);
+  yield put(keypairActionCreators.setPublicKeys(newKeys));
+}
+
+function* handleChangeActivePublicKeyPressed({ payload: { label } }) {
+  yield call(LocalStorage.set, LocalStorageKeys.activePublicKey, label);
+  yield put(keypairActionCreators.setActivePublicKey(label));
 }
 
 export function* keypairSagas() {
@@ -116,5 +165,13 @@ export function* keypairSagas() {
     takeLatest(keypairActionTypes.GENERATE_KEYPAIR_PRESSED, handleGenerateKeypairPressed),
     takeLatest(keypairActionTypes.DELETE_KEYPAIR_PRESSED, handleDeleteKeypairPressed),
     takeLatest(keypairActionTypes.FINISH_BACKUP_PRESSED, handleFinishBackupPressed),
+    takeLatest(keypairActionTypes.KEY_PRESSED, handleKeyPressed),
+    takeLatest(keypairActionTypes.ADD_PUBLIC_KEY_PRESSED, handleAddPublicKeyPressed),
+    takeLatest(keypairActionTypes.SAVE_PUBLIC_KEY_PRESSED, handleSavePublicKeyPressed),
+    takeLatest(keypairActionTypes.DELETE_PUBLIC_KEY_PRESSED, handleDeletePublicKeyPressed),
+    takeLatest(
+      keypairActionTypes.CHANGE_ACTIVE_PUBLIC_KEY_PRESSED,
+      handleChangeActivePublicKeyPressed
+    ),
   ]);
 }

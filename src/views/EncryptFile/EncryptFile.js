@@ -3,6 +3,7 @@ import React from 'react';
 import { Image, Pressable } from 'react-native';
 import { Button, Divider, IconButton, List, Text } from 'react-native-paper';
 
+import ActivePublicKey from '../../components/ActivePublicKey';
 import Box from '../../components/Box';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
@@ -37,6 +38,8 @@ export default function EncryptFile({
   const hasEncryptedFiles = !!encryptedFiles?.length;
   return (
     <ScreenWrapper title="Encrypt file">
+      <ActivePublicKey />
+
       <Text variant="headlineLarge">Encrypt</Text>
       <Text>Pick files to encrypt.</Text>
       <Spacer />

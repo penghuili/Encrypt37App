@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Divider, IconButton, Text, TextInput } from 'react-native-paper';
 
+import ActivePublicKey from '../../components/ActivePublicKey';
 import Box from '../../components/Box';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
@@ -17,6 +18,8 @@ export default function EncryptText({
 }) {
   return (
     <ScreenWrapper title="Encrypt text">
+      <ActivePublicKey />
+
       <Text variant="headlineLarge">Encrypt</Text>
       <Spacer size={8} />
       <TextInput

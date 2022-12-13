@@ -60,6 +60,12 @@ export async function generateKeyPair() {
   };
 }
 
+export async function isValidPublicKey(publicKey) {
+  const { data } = await encryptText('test', publicKey);
+
+  return !!data;
+}
+
 export async function encryptText(text, publicKey) {
   try {
     const encrypted = await OpenPGP.encrypt(text, armorPublicKey(publicKey));

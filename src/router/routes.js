@@ -5,4 +5,7 @@ export const routeNames = {
   text: 'text',
   file: 'file',
   settings: 'settings',
+  keypairs: 'keypairs',
+  fullKey: 'fullKey',
+  addPublicKey: 'addPublicKey',
 };

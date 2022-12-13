@@ -1,8 +1,10 @@
 export const keypairActionTypes = {
   SET_PRIVATE_KEY: 'keypair/SET_PRIVATE_KEY',
   SET_PUBLIC_KEY: 'keypair/SET_PUBLIC_KEY',
+  SET_PUBLIC_KEYS: 'keypair/SET_PUBLIC_KEYS',
   FINISH_LOADING: 'keypair/FINISH_LOADING',
   SET_BACKUP: 'keypair/SET_BACKUP',
+  SET_ACTIVE_PUBLIC_KEY: 'keypair/SET_ACTIVE_PUBLIC_KEY',
 
   NAVIGATE_TO_NEW_KEYPAIR_PRESSED: 'keypair/NAVIGATE_TO_NEW_KEYPAIR_PRESSED',
   NAVIGATE_TO_EXISTING_KEYPAIR_PRESSED: 'keypair/NAVIGATE_TO_EXISTING_KEYPAIR_PRESSED',
@@ -12,6 +14,11 @@ export const keypairActionTypes = {
   PASTE_PRIVATE_KEY_PRESSED: 'keypair/PASTE_PRIVATE_KEY_PRESSED',
   FINISH_ADD_EXISTING_KEYPAIR_PRESSED: 'keypair/FINISH_ADD_EXISTING_KEYPAIR_PRESSED',
   DELETE_KEYPAIR_PRESSED: 'keypair/DELETE_KEYPAIR_PRESSED',
+  KEY_PRESSED: 'keypair/KEY_PRESSED',
+  ADD_PUBLIC_KEY_PRESSED: 'keypair/ADD_PUBLIC_KEY_PRESSED',
+  SAVE_PUBLIC_KEY_PRESSED: 'keypair/SAVE_PUBLIC_KEY_PRESSED',
+  DELETE_PUBLIC_KEY_PRESSED: 'keypair/DELETE_PUBLIC_KEY_PRESSED',
+  CHANGE_ACTIVE_PUBLIC_KEY_PRESSED: 'keypair/CHANGE_ACTIVE_PUBLIC_KEY_PRESSED',
 };
 
 export const keypairActionCreators = {
@@ -20,6 +27,9 @@ export const keypairActionCreators = {
   },
   setPublicKey(publicKey) {
     return { type: keypairActionTypes.SET_PUBLIC_KEY, payload: { publicKey } };
+  },
+  setPublicKeys(publicKeys) {
+    return { type: keypairActionTypes.SET_PUBLIC_KEYS, payload: { publicKeys } };
   },
   finishLoading() {
     return { type: keypairActionTypes.FINISH_LOADING };
@@ -50,5 +60,23 @@ export const keypairActionCreators = {
   },
   deleteKeypairPressed() {
     return { type: keypairActionTypes.DELETE_KEYPAIR_PRESSED };
+  },
+  keyPressed(label, value) {
+    return { type: keypairActionTypes.KEY_PRESSED, payload: { label, value } };
+  },
+  addPublicKeyPressed() {
+    return { type: keypairActionTypes.ADD_PUBLIC_KEY_PRESSED };
+  },
+  savePublicKeyPressed(label, publicKey) {
+    return { type: keypairActionTypes.SAVE_PUBLIC_KEY_PRESSED, payload: { label, publicKey } };
+  },
+  deletePublicKeyPressed(label) {
+    return { type: keypairActionTypes.DELETE_PUBLIC_KEY_PRESSED, payload: { label } };
+  },
+  setActivePublicKey(label) {
+    return { type: keypairActionTypes.SET_ACTIVE_PUBLIC_KEY, payload: { label } };
+  },
+  changeActivePublicKeyPressed(label) {
+    return { type: keypairActionTypes.CHANGE_ACTIVE_PUBLIC_KEY_PRESSED, payload: { label } };
   },
 };

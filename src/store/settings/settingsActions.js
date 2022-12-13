@@ -2,6 +2,7 @@ export const settingsActionTypes = {
   READ_CACHE_SIZE: 'settings/READ_CACHE_SIZE',
   SET_CACHE_SIZE: 'settings/SET_CACHE_SIZE',
   CLEAR_CACHE_PRESSED: 'settings/CLEAR_CACHE_PRESSED',
+  MANAGE_KEYPAIRS_PRESSED: 'settings/MANAGE_KEYPAIRS_PRESSED',
 };
 
 export const settingsActionCreators = {
@@ -13,5 +14,8 @@ export const settingsActionCreators = {
   },
   clearCachePressed() {
     return { type: settingsActionTypes.CLEAR_CACHE_PRESSED };
+  },
+  manageKeypairPressed() {
+    return { type: settingsActionTypes.MANAGE_KEYPAIRS_PRESSED };
   },
 };

@@ -3,6 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const LocalStorageKeys = {
   privateKey: 'privateKey',
   publicKey: 'publicKey',
+  publicKeys: 'publicKeys',
+  activePublicKey: 'activePublicKey',
   hasDoneBackup: 'hasDoneBackup',
 };
 

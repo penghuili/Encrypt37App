@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { ScrollView } from 'react-native';
-import { Button, Divider, IconButton, Modal, Portal, Text, useTheme } from 'react-native-paper';
+import React from 'react';
+import { Button, Divider } from 'react-native-paper';
 
 import Box from '../../components/Box';
+import KeyItem from '../../components/KeyItem';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
 import { readFromClipboard } from '../../lib/clipboard';
@@ -15,10 +15,6 @@ export default function ExistingKeypair({
   onFinish,
   onToast,
 }) {
-  const theme = useTheme();
-  const [showPrivateKey, setShowPrivateKey] = useState(false);
-  const [showPublicKey, setShowPublicKey] = useState(false);
-
   return (
     <ScreenWrapper hasBack title="Add existing key pair">
       <Box>
@@ -39,10 +35,7 @@ export default function ExistingKeypair({
         {!!publicKey && (
           <>
             <Spacer />
-            <Text variant="headlineLarge">Public key:</Text>
-            <Text variant="bodySmall" numberOfLines={5}>
-              {publicKey}
-            </Text>
+            <KeyItem label="Public key" value={publicKey} />
           </>
         )}
 
@@ -64,10 +57,7 @@ export default function ExistingKeypair({
         {!!privateKey && (
           <>
             <Spacer />
-            <Text variant="headlineLarge">Private key:</Text>
-            <Text variant="bodySmall" numberOfLines={5}>
-              {privateKey}
-            </Text>
+            <KeyItem label="Private key" value={privateKey} />
           </>
         )}
       </Box>
@@ -83,41 +73,6 @@ export default function ExistingKeypair({
           </Box>
         </>
       )}
-
-      <Portal>
-        <Modal
-          visible={showPrivateKey || showPublicKey}
-          onDismiss={() => {
-            setShowPrivateKey(false);
-            setShowPublicKey(false);
-          }}
-        >
-          <ScrollView style={{ backgroundColor: theme.colors.background }}>
-            <Box px="4">
-              <IconButton
-                icon="close"
-                onPress={() => {
-                  setShowPrivateKey(false);
-                  setShowPublicKey(false);
-                }}
-              />
-              {showPrivateKey && (
-                <>
-                  <Text variant="headlineLarge">Private key:</Text>
-                  <Text variant="bodySmall">{privateKey}</Text>
-                </>
-              )}
-
-              {showPublicKey && (
-                <>
-                  <Text variant="headlineLarge">Public key:</Text>
-                  <Text variant="bodySmall">{publicKey}</Text>
-                </>
-              )}
-            </Box>
-          </ScrollView>
-        </Modal>
-      </Portal>
     </ScreenWrapper>
   );
 }
