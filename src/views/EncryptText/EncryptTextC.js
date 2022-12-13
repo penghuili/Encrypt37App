@@ -15,6 +15,7 @@ const mapDispatchToProps = {
   onEncryptedTextChange: textActionCreators.setEncryptedText,
   onEncryptText: textActionCreators.encryptTextPressed,
   onDecryptText: textActionCreators.decryptTextPressed,
+  onShare: textActionCreators.shareTextPressed,
   onToast: toastActionCreators.setToast,
 };
 

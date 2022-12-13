@@ -14,6 +14,7 @@ export default function EncryptText({
   onEncryptedTextChange,
   onEncryptText,
   onDecryptText,
+  onShare,
   onToast,
 }) {
   return (
@@ -41,6 +42,7 @@ export default function EncryptText({
         >
           Encrypt
         </Button>
+        <IconButton icon="export-variant" disabled={!text} onPress={() => onShare(text)} />
         <IconButton
           icon="content-copy"
           disabled={!text}
@@ -85,6 +87,11 @@ export default function EncryptText({
         >
           Decrypt
         </Button>
+        <IconButton
+          icon="export-variant"
+          disabled={!encryptedText}
+          onPress={() => onShare(encryptedText)}
+        />
         <IconButton
           icon="content-copy"
           disabled={!encryptedText}

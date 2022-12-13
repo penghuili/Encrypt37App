@@ -192,6 +192,20 @@ export async function shareFile({ name, path }) {
   }
 }
 
+export async function shareText(text) {
+  try {
+    const { success } = await Share.open({
+      message: text,
+      failOnCancel: false,
+    });
+
+    return !!success;
+  } catch (e) {
+    console.log('share text failed', e);
+    return false;
+  }
+}
+
 export async function pickImages() {
   try {
     const result = await launchImageLibrary({

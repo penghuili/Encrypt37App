@@ -2,6 +2,7 @@ import { Keyboard } from 'react-native';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { decryptText, encryptText } from '../../lib/encryption';
+import { shareText } from '../../lib/file';
 import { keypairSelectors } from '../keypair/keypairSelectors';
 import { toastActionCreators } from '../toast/toastActions';
 import { textActionCreators, textActionTypes } from './textActions';
@@ -27,9 +28,17 @@ function* hanldeDecryptTextPressed({ payload: { encryptedText } }) {
   }
 }
 
+function* handleShareTextPressed({ payload: { text } }) {
+  const success = yield call(shareText, text);
+  if (success) {
+    yield put(toastActionCreators.setToast('Shared!'));
+  }
+}
+
 export function* textSagas() {
   yield all([
     takeLatest(textActionTypes.ENCRYPT_TEXT_PRESSED, hanldeEncryptTextPressed),
     takeLatest(textActionTypes.DECRYPT_TEXT_PRESSED, hanldeDecryptTextPressed),
+    takeLatest(textActionTypes.SHARE_TEXT_PRESSED, handleShareTextPressed),
   ]);
 }

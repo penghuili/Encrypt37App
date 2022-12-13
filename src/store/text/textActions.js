@@ -4,6 +4,7 @@ export const textActionTypes = {
 
   ENCRYPT_TEXT_PRESSED: 'text/ENCRYPT_TEXT_PRESSED',
   DECRYPT_TEXT_PRESSED: 'text/DECRYPT_TEXT_PRESSED',
+  SHARE_TEXT_PRESSED: 'text/SHARE_TEXT_PRESSED',
 };
 
 export const textActionCreators = {
@@ -16,8 +17,10 @@ export const textActionCreators = {
   encryptTextPressed(text) {
     return { type: textActionTypes.ENCRYPT_TEXT_PRESSED, payload: { text } };
   },
-
   decryptTextPressed(encryptedText) {
     return { type: textActionTypes.DECRYPT_TEXT_PRESSED, payload: { encryptedText } };
+  },
+  shareTextPressed(text) {
+    return { type: textActionTypes.SHARE_TEXT_PRESSED, payload: { text } };
   },
 };
