@@ -5,7 +5,7 @@ export const keypairSelectors = {
   getActivePublicKey: state => {
     const activeLabel = keypairSelectors.getActivePublicKeyLabel(state);
     return activeLabel
-      ? keypairSelectors.getPublicKeys(state).find(p => p.label === activeLabel).value
+      ? keypairSelectors.getPublicKeys(state).find(p => p.label === activeLabel).publicKey
       : keypairSelectors.getPublicKey(state);
   },
   getPublicKeys: state => state.keypair.publicKeys,
