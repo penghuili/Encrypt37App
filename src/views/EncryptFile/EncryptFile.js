@@ -78,7 +78,9 @@ export default function EncryptFile({
         >
           Encrypt
         </Button>
-        <IconButton icon="close" disabled={!hasPickedFiles} onPress={onClearPicked} />
+        {hasPickedFiles && (
+          <IconButton icon="close" disabled={!hasPickedFiles} onPress={onClearPicked} />
+        )}
       </Box>
 
       <Spacer />
@@ -99,7 +101,9 @@ export default function EncryptFile({
         >
           Decrypt
         </Button>
-        <IconButton icon="close" disabled={!hasEncryptedFiles} onPress={onClearEncrypted} />
+        {hasEncryptedFiles && (
+          <IconButton icon="close" disabled={!hasEncryptedFiles} onPress={onClearEncrypted} />
+        )}
       </Box>
 
       {hasEncryptedFiles && (
