@@ -53,7 +53,7 @@ export default function Keypairs({
       <Text variant="headlineMedium">My friends' public keys</Text>
       <Spacer />
       <Box>
-        <Button mode="contained" icon="account-plus" onPress={onAddPublicKey}>
+        <Button mode="outlined" icon="plus" onPress={onAddPublicKey}>
           Add friend's public key
         </Button>
       </Box>

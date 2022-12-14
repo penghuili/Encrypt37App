@@ -1,14 +1,14 @@
 import { useIsFocused } from '@react-navigation/native';
 import React from 'react';
 import { Image, Pressable } from 'react-native';
-import { Button, Divider, IconButton, List, Text } from 'react-native-paper';
+import { Button, Divider, IconButton, Text } from 'react-native-paper';
 
 import ActivePublicKey from '../../components/ActivePublicKey';
 import Box from '../../components/Box';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
-import { ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES, encryptionStatus } from '../../lib/encryption';
 import AddFile from './components/AddFile';
+import FileItem from './components/FileItem';
 
 export default function EncryptFile({
   pickedFiles,
@@ -20,19 +20,6 @@ export default function EncryptFile({
   onClearEncrypted,
 }) {
   const isFocused = useIsFocused();
-
-  function renderDescription(file) {
-    switch (file.status) {
-      case encryptionStatus.FAILED:
-        return 'Encryption failed.';
-
-      case encryptionStatus.TOO_LARGE:
-        return `File is bigger than ${ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES}MB.`;
-
-      default:
-        return null;
-    }
-  }
 
   const hasPickedFiles = !!pickedFiles.images.length || !!pickedFiles.files.length;
   const hasEncryptedFiles = !!encryptedFiles?.length;
@@ -57,11 +44,7 @@ export default function EncryptFile({
             ))}
           </Box>
           {pickedFiles.files.map(file => (
-            <List.Item
-              key={file.name}
-              title={file.name}
-              right={() => <IconButton icon="export-variant" onPress={() => onShare(file)} />}
-            />
+            <FileItem key={file.name} file={file} onShare={onShare} />
           ))}
 
           <Spacer />
@@ -109,16 +92,7 @@ export default function EncryptFile({
       {hasEncryptedFiles && (
         <>
           {encryptedFiles.map(file => (
-            <List.Item
-              key={file.name}
-              title={file.name}
-              description={renderDescription(file)}
-              right={() =>
-                file.status === encryptionStatus.SUCCEEDED ? (
-                  <IconButton icon="export-variant" onPress={() => onShare(file)} />
-                ) : null
-              }
-            />
+            <FileItem key={file.name} file={file} onShare={onShare} />
           ))}
         </>
       )}

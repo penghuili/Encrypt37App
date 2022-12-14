@@ -1,6 +1,6 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 import { encrypt37Extension } from '../../lib/constants';
-import { decryptFiles, encryptFiles } from '../../lib/encryption';
+import { decryptFiles, encryptFiles, encryptionStatus } from '../../lib/encryption';
 
 import { deleteFiles, pickFiles, pickImages, shareFile, takePhoto } from '../../lib/file';
 import { keypairSelectors } from '../keypair/keypairSelectors';
@@ -37,7 +37,12 @@ function* handleDecryptPressed({ payload: { files } }) {
   const decrypted = yield call(decryptFiles, files, privateKey);
   yield put(fileActionCreators.setPickedFiles(decrypted));
 
-  yield put(toastActionCreators.setToast('Decrypt file finished.'));
+  const succeeded = decrypted.filter(f => f.status === encryptionStatus.SUCCEEDED);
+  if (succeeded.length === files.length) {
+    yield put(toastActionCreators.setToast('All files are decrypted.'));
+  } else {
+    yield put(toastActionCreators.setToast('Some files have problems.'));
+  }
 }
 
 function* handleShareFilePressed({ payload: { file } }) {

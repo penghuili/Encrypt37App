@@ -112,9 +112,7 @@ async function decryptFile(inputPath, outputPath, privateKey) {
 
 function getEncryptedFileName(fileName) {
   const { extension } = extractFileNameAndExtension(fileName);
-  return isIOS()
-    ? `${format(new Date(), 'yyyyMMdd_HHmmss_SSS')}${extension}.${encrypt37Extension}`
-    : `${fileName}.${encrypt37Extension}`;
+  return `${format(new Date(), 'yyyyMMdd_HHmmss_SSS')}${extension}.${encrypt37Extension}`;
 }
 
 function getOriginalFileName(encryptedFileName) {
