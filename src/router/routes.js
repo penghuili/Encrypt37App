@@ -8,4 +8,5 @@ export const routeNames = {
   keypairs: 'keypairs',
   fullKey: 'fullKey',
   addPublicKey: 'addPublicKey',
+  friendPublicKey: 'friendPublicKey',
 };

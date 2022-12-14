@@ -24,7 +24,7 @@ export default function EncryptText({
       <Text variant="headlineLarge">Encrypt</Text>
       <Spacer size={8} />
       <TextInput
-        label="Text"
+        label="Message"
         multiline
         numberOfLines={5}
         value={text}

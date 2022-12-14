@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Text, TextInput } from 'react-native-paper';
-import Box from '../../components/Box';
+import { Button, TextInput } from 'react-native-paper';
 
+import Box from '../../components/Box';
 import KeyItem from '../../components/KeyItem';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
@@ -13,8 +13,7 @@ export default function AddPublicKey({ onSave, onToast }) {
 
   return (
     <ScreenWrapper hasBack title="Add friend's public key">
-      <Text>Your friend's name</Text>
-      <TextInput label="Text" value={name} onChangeText={setName} />
+      <TextInput label="Your friend's name" value={name} onChangeText={setName} />
       <Spacer />
       <Box>
         <Button

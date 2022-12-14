@@ -143,11 +143,22 @@ function* handleDeletePublicKeyPressed({ payload: { label } }) {
     yield call(LocalStorage.remove, LocalStorageKeys.activePublicKey);
     yield put(keypairActionCreators.setActivePublicKey(null));
   }
+
+  yield call(navigationRef.goBack);
 }
 
 function* handleChangeActivePublicKeyPressed({ payload: { label } }) {
   yield call(LocalStorage.set, LocalStorageKeys.activePublicKey, label);
   yield put(keypairActionCreators.setActivePublicKey(label));
+  if (label) {
+    yield put(toastActionCreators.setToast(`You will encrypt for "${label}" from now on.`));
+  } else {
+    yield put(toastActionCreators.setToast('You will encrypt for yourself from now on.'));
+  }
+}
+
+function* handleFriendPublicKeyPressed({ payload: { label, publicKey } }) {
+  yield call(navigationRef.navigate, routeNames.friendPublicKey, { label, publicKey });
 }
 
 export function* keypairSagas() {
@@ -179,5 +190,6 @@ export function* keypairSagas() {
       keypairActionTypes.CHANGE_ACTIVE_PUBLIC_KEY_PRESSED,
       handleChangeActivePublicKeyPressed
     ),
+    takeLatest(keypairActionTypes.FRIEND_PUBLIC_KEY_PRESSED, handleFriendPublicKeyPressed),
   ]);
 }

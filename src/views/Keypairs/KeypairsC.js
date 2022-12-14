@@ -14,8 +14,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   onDeleteKeypair: keypairActionCreators.deleteKeypairPressed,
   onAddPublicKey: keypairActionCreators.addPublicKeyPressed,
-  onDeletePublicKey: keypairActionCreators.deletePublicKeyPressed,
   onChangeActivePublicKey: keypairActionCreators.changeActivePublicKeyPressed,
+  onFriendPublicKeyPress: keypairActionCreators.friendPublicKeyPressed,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Keypairs);

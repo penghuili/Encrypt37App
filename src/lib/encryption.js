@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 import OpenPGP, { Cipher } from 'react-native-fast-openpgp';
+
 import { asyncForEach } from './array';
 import { encrypt37Extension } from './constants';
 import { cachePath, deleteFile, extractFileNameAndExtension, statFile } from './file';
-import { isIOS } from './helpers';
 
 function unarmor(encryptedText) {
   return encryptedText.split('openpgp-mobile')[1].split('-----END')[0].trim();

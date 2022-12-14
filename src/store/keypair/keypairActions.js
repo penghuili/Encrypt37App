@@ -19,6 +19,7 @@ export const keypairActionTypes = {
   SAVE_PUBLIC_KEY_PRESSED: 'keypair/SAVE_PUBLIC_KEY_PRESSED',
   DELETE_PUBLIC_KEY_PRESSED: 'keypair/DELETE_PUBLIC_KEY_PRESSED',
   CHANGE_ACTIVE_PUBLIC_KEY_PRESSED: 'keypair/CHANGE_ACTIVE_PUBLIC_KEY_PRESSED',
+  FRIEND_PUBLIC_KEY_PRESSED: 'keypair/FRIEND_PUBLIC_KEY_PRESSED',
 };
 
 export const keypairActionCreators = {
@@ -78,5 +79,8 @@ export const keypairActionCreators = {
   },
   changeActivePublicKeyPressed(label) {
     return { type: keypairActionTypes.CHANGE_ACTIVE_PUBLIC_KEY_PRESSED, payload: { label } };
+  },
+  friendPublicKeyPressed(label, publicKey) {
+    return { type: keypairActionTypes.FRIEND_PUBLIC_KEY_PRESSED, payload: { label, publicKey } };
   },
 };

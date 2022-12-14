@@ -13,8 +13,8 @@ export default function Keypairs({
   activePublicKey,
   onDeleteKeypair,
   onAddPublicKey,
-  onDeletePublicKey,
   onChangeActivePublicKey,
+  onFriendPublicKeyPress,
 }) {
   const theme = useTheme();
 
@@ -60,7 +60,11 @@ export default function Keypairs({
       {publicKeys.map(item => (
         <List.Item
           key={item.label}
-          title={item.label}
+          title={
+            <Text onPress={() => onFriendPublicKeyPress(item.label, item.publicKey)}>
+              {item.label}
+            </Text>
+          }
           left={() =>
             activePublicKey === item.label ? (
               <IconButton
@@ -75,7 +79,6 @@ export default function Keypairs({
               />
             )
           }
-          right={() => <IconButton icon="delete" onPress={() => onDeletePublicKey(item.label)} />}
         />
       ))}
     </ScreenWrapper>
