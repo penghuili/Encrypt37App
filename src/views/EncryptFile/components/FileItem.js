@@ -34,8 +34,10 @@ export default function FileItem({ file, onShare }) {
         ) : null
       }
     >
-      <Text>{file.name}</Text>
-      {renderDescription()}
+      <>
+        <Text>{file.name}</Text>
+        {renderDescription()}
+      </>
     </ListItem>
   );
 }
