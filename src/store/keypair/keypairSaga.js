@@ -90,6 +90,10 @@ function* handleGenerateKeypairPressed() {
 }
 
 function* handleDeleteKeypairPressed() {
+  yield call(navigationRef.navigate, routeNames.confirmDeleteKeys);
+}
+
+function* handleConfirmDeleteKeypairPressed() {
   yield call(LocalStorage.remove, LocalStorageKeys.privateKey);
   yield call(LocalStorage.remove, LocalStorageKeys.publicKey);
   yield call(LocalStorage.remove, LocalStorageKeys.publicKeys);
@@ -118,17 +122,27 @@ function* handleAddPublicKeyPressed() {
 }
 
 function* handleSavePublicKeyPressed({ payload: { label, publicKey } }) {
-  const trimmedPublicKey = publicKey.trim();
-  const isValid = yield call(isValidPublicKey, trimmedPublicKey);
-  if (!isValid) {
-    yield put(toastActionCreators.setToast('Public key is invalid'));
+  const publicKeys = yield select(keypairSelectors.getPublicKeys);
+  const trimmedLabel = label.trim();
+  const isUsed = !!publicKeys.find(k => k.label === trimmedLabel);
+  if (isUsed) {
+    yield put(
+      toastActionCreators.setToast(`"${trimmedLabel}" is already used, choose a different name.`)
+    );
     return;
   }
 
-  const publicKeys = yield select(keypairSelectors.getPublicKeys);
+  const trimmedPublicKey = publicKey.trim();
+  const isValid = yield call(isValidPublicKey, trimmedPublicKey);
+  if (!isValid) {
+    yield put(toastActionCreators.setToast('Public key is invalid.'));
+    return;
+  }
+
   const newKeys = [...publicKeys, { label: label.trim(), publicKey: trimmedPublicKey }];
   yield call(LocalStorage.set, LocalStorageKeys.publicKeys, newKeys);
   yield put(keypairActionCreators.setPublicKeys(newKeys));
+  yield put(toastActionCreators.setToast('Added!'));
   yield call(navigationRef.goBack);
 }
 
@@ -181,6 +195,10 @@ export function* keypairSagas() {
     ),
     takeLatest(keypairActionTypes.GENERATE_KEYPAIR_PRESSED, handleGenerateKeypairPressed),
     takeLatest(keypairActionTypes.DELETE_KEYPAIR_PRESSED, handleDeleteKeypairPressed),
+    takeLatest(
+      keypairActionTypes.CONFIRM_DELETE_KEYPAIR_PRESSED,
+      handleConfirmDeleteKeypairPressed
+    ),
     takeLatest(keypairActionTypes.FINISH_BACKUP_PRESSED, handleFinishBackupPressed),
     takeLatest(keypairActionTypes.KEY_PRESSED, handleKeyPressed),
     takeLatest(keypairActionTypes.ADD_PUBLIC_KEY_PRESSED, handleAddPublicKeyPressed),

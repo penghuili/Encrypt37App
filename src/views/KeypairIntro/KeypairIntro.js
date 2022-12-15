@@ -1,6 +1,7 @@
 import React from 'react';
 import { Linking } from 'react-native';
 import { Button, Text } from 'react-native-paper';
+import Link from '../../components/Link';
 
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
@@ -9,17 +10,18 @@ export default function KeypairIntro({ onNewKeypair, onExistingKeypair }) {
   return (
     <ScreenWrapper title="Generate keypair">
       <Text>
-        Encrypt37 is an end-to-end encryption app, you can use it to encrypt text and file.
+        Encrypt37 is an end-to-end encryption app, you can use it to encrypt text and file.{' '}
+        <Link
+          onPress={() => {
+            const link = 'https://proton.me/blog/what-is-end-to-end-encryption';
+            Linking.openURL(link);
+          }}
+        >
+          Know more
+        </Link>
       </Text>
-      <Button
-        compact
-        onPress={() => {
-          const link = 'https://proton.me/blog/what-is-end-to-end-encryption';
-          Linking.openURL(link);
-        }}
-      >
-        Know more
-      </Button>
+
+      <Spacer />
       <Text>Firstly, let's generate a key pair.</Text>
       <Spacer />
 

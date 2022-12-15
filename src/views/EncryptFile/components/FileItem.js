@@ -1,19 +1,25 @@
 import React from 'react';
-import { IconButton, List } from 'react-native-paper';
+import { IconButton, Text } from 'react-native-paper';
 
+import ListItem from '../../../components/ListItem';
 import { ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES, encryptionStatus } from '../../../lib/encryption';
 
 export default function FileItem({ file, onShare }) {
   function renderDescription() {
     switch (file.status) {
-      case encryptionStatus.FAILED:
-        return 'Decryption failed.';
+      case encryptionStatus.DECRYPT_FAILED:
+        return (
+          <Text>Decryption failed. Make sure this file is encrypted with your public key.</Text>
+        );
+
+      case encryptionStatus.ENCRYPT_FAILED:
+        return <Text>Encryption failed. Make sure you are a valid public key.</Text>;
 
       case encryptionStatus.TOO_LARGE:
-        return `File is bigger than ${ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES}MB.`;
+        return <Text>File is bigger than {ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES}MB.</Text>;
 
       case encryptionStatus.WRONG_FILE:
-        return 'Only pick files end with .e37';
+        return <Text>Only pick files end with .e37</Text>;
 
       default:
         return null;
@@ -21,15 +27,15 @@ export default function FileItem({ file, onShare }) {
   }
 
   return (
-    <List.Item
-      key={file.name}
-      title={file.name}
-      description={renderDescription()}
-      right={() =>
+    <ListItem
+      right={
         file.status === encryptionStatus.SUCCEEDED ? (
-          <IconButton icon="export-variant" onPress={() => onShare(file)} />
+          <IconButton icon="export-variant" size={16} onPress={() => onShare(file)} />
         ) : null
       }
-    />
+    >
+      <Text>{file.name}</Text>
+      {renderDescription()}
+    </ListItem>
   );
 }

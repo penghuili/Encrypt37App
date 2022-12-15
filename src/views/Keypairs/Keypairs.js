@@ -1,8 +1,10 @@
 import React from 'react';
-import { Button, Divider, IconButton, List, Text, useTheme } from 'react-native-paper';
+import { Button, Divider, IconButton, Text, useTheme } from 'react-native-paper';
 
+import ActivePublicKey from '../../components/ActivePublicKey';
 import Box from '../../components/Box';
 import KeyItem from '../../components/KeyItem';
+import ListItem from '../../components/ListItem';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
 
@@ -20,14 +22,7 @@ export default function Keypairs({
 
   return (
     <ScreenWrapper hasBack title="Manage key pairs">
-      <Text variant="headlineMedium">Active public key</Text>
-      <Text style={{ color: theme.colors.primary }} variant="bodyLarge">
-        {activePublicKey ? activePublicKey : 'My own public key'}
-      </Text>
-
-      <Spacer />
-      <Divider />
-      <Spacer />
+      <ActivePublicKey />
 
       <Text variant="headlineMedium">My key pair</Text>
       <Spacer />
@@ -35,52 +30,69 @@ export default function Keypairs({
       <Spacer />
       <KeyItem label="Private key" value={privateKey} />
       <Spacer />
-      <Box>
+      <Box direction="row" justify="space-between">
+        <Button
+          mode="contained"
+          icon="check"
+          disabled={!activePublicKey}
+          onPress={() => onChangeActivePublicKey(null)}
+        >
+          Activate
+        </Button>
+
         <Button
           mode="contained"
           icon="delete"
           buttonColor={theme.colors.error}
           onPress={onDeleteKeypair}
         >
-          Delete key pair
+          Delete
         </Button>
       </Box>
 
-      <Spacer />
+      <Spacer size={32} />
       <Divider />
-      <Spacer />
+      <Spacer size={32} />
 
       <Text variant="headlineMedium">My friends' public keys</Text>
       <Spacer />
       <Box>
         <Button mode="outlined" icon="plus" onPress={onAddPublicKey}>
-          Add friend's public key
+          Add public key
         </Button>
       </Box>
       {publicKeys.map(item => (
-        <List.Item
+        <ListItem
           key={item.label}
-          title={
-            <Text onPress={() => onFriendPublicKeyPress(item.label, item.publicKey)}>
-              {item.label}
-            </Text>
-          }
-          left={() =>
+          onPress={() => onFriendPublicKeyPress(item.label, item.publicKey)}
+          left={
             activePublicKey === item.label ? (
               <IconButton
                 icon="checkbox-marked-circle"
                 iconColor={theme.colors.primary}
+                size={16}
                 onPress={() => onChangeActivePublicKey(null)}
               />
             ) : (
               <IconButton
                 icon="checkbox-blank-circle-outline"
+                size={16}
                 onPress={() => onChangeActivePublicKey(item.label)}
               />
             )
           }
-        />
+        >
+          {item.label}
+        </ListItem>
       ))}
+      {!publicKeys.length && (
+        <>
+          <Spacer />
+          <Text>
+            Add your friends' public key here, so you can encrypt content and share with them.
+          </Text>
+        </>
+      )}
     </ScreenWrapper>
   );
 }

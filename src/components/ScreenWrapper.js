@@ -10,22 +10,22 @@ export default function ScreenWrapper({ hasBack, title, children }) {
   const theme = useTheme();
 
   return (
-    <SafeAreaView edges={['left', 'right', 'bottom']}>
-      <Appbar.Header>
-        {!!hasBack && <Appbar.BackAction onPress={navigationRef.goBack} />}
-        <Appbar.Content title={title} />
-      </Appbar.Header>
+    <SafeAreaView edges={['left', 'right']}>
       <ScrollView
         keyboardShouldPersistTaps="handled"
         style={{
           height: '100%',
           backgroundColor: theme.colors.background,
-          paddingHorizontal: 4,
+          paddingHorizontal: 8,
           paddingVertical: 8,
         }}
       >
+        <Appbar.Header>
+          {!!hasBack && <Appbar.BackAction onPress={navigationRef.goBack} />}
+          <Appbar.Content title={title} />
+        </Appbar.Header>
         {children}
-        <Spacer size={150} />
+        <Spacer size={200} />
       </ScrollView>
     </SafeAreaView>
   );

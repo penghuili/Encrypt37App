@@ -5,8 +5,8 @@ import { Text } from 'react-native-paper';
 
 import Box from '../../components/Box';
 import Link from '../../components/Link';
+import ListItem from '../../components/ListItem';
 import ScreenWrapper from '../../components/ScreenWrapper';
-import Spacer from '../../components/Spacer';
 
 export default function Settings({ cacheSize, onManageKeypairs, onReadCacheSize, onClearCache }) {
   useFocusEffect(() => {
@@ -16,16 +16,20 @@ export default function Settings({ cacheSize, onManageKeypairs, onReadCacheSize,
   return (
     <ScreenWrapper title="Settings">
       <Box>
-        <Link onPress={onManageKeypairs}>Manage key pairs</Link>
-        <Spacer />
-        <Box direction="row" align="center">
-          <Text style={{ marginRight: 4 }}>Cache: {cacheSize}</Text>
-          <Link onPress={onClearCache}>Clear</Link>
-        </Box>
-        <Spacer />
-        <Text>
-          v{DeviceInfo.getVersion()}({DeviceInfo.getBuildNumber()})
-        </Text>
+        <ListItem space={16} onPress={onManageKeypairs}>
+          Manage key pairs
+        </ListItem>
+        <ListItem space={16}>
+          <Box direction="row" align="center">
+            <Text style={{ marginRight: 4 }}>Cache: {cacheSize}</Text>
+            <Link onPress={onClearCache}>Clear</Link>
+          </Box>
+        </ListItem>
+        <ListItem space={16}>
+          <Text>
+            v{DeviceInfo.getVersion()}({DeviceInfo.getBuildNumber()})
+          </Text>
+        </ListItem>
       </Box>
     </ScreenWrapper>
   );

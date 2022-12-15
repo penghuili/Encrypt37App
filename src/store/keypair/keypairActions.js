@@ -14,6 +14,7 @@ export const keypairActionTypes = {
   PASTE_PRIVATE_KEY_PRESSED: 'keypair/PASTE_PRIVATE_KEY_PRESSED',
   FINISH_ADD_EXISTING_KEYPAIR_PRESSED: 'keypair/FINISH_ADD_EXISTING_KEYPAIR_PRESSED',
   DELETE_KEYPAIR_PRESSED: 'keypair/DELETE_KEYPAIR_PRESSED',
+  CONFIRM_DELETE_KEYPAIR_PRESSED: 'keypair/CONFIRM_DELETE_KEYPAIR_PRESSED',
   KEY_PRESSED: 'keypair/KEY_PRESSED',
   ADD_PUBLIC_KEY_PRESSED: 'keypair/ADD_PUBLIC_KEY_PRESSED',
   SAVE_PUBLIC_KEY_PRESSED: 'keypair/SAVE_PUBLIC_KEY_PRESSED',
@@ -61,6 +62,9 @@ export const keypairActionCreators = {
   },
   deleteKeypairPressed() {
     return { type: keypairActionTypes.DELETE_KEYPAIR_PRESSED };
+  },
+  confirmDeleteKeypairPressed() {
+    return { type: keypairActionTypes.CONFIRM_DELETE_KEYPAIR_PRESSED };
   },
   keyPressed(label, value) {
     return { type: keypairActionTypes.KEY_PRESSED, payload: { label, value } };

@@ -9,4 +9,5 @@ export const routeNames = {
   fullKey: 'fullKey',
   addPublicKey: 'addPublicKey',
   friendPublicKey: 'friendPublicKey',
+  confirmDeleteKeys: 'confirmDeleteKeys',
 };

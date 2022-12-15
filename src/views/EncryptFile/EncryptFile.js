@@ -66,9 +66,9 @@ export default function EncryptFile({
         )}
       </Box>
 
-      <Spacer />
+      <Spacer size={32} />
       <Divider />
-      <Spacer />
+      <Spacer size={32} />
 
       <Text variant="headlineLarge">Decrypt</Text>
       <Text>Pick files to decrypt. Only pick files that end with .e37</Text>

@@ -42,6 +42,15 @@ export default function EncryptText({
         >
           Encrypt
         </Button>
+        <IconButton
+          icon="content-paste"
+          onPress={async () => {
+            const m = await readFromClipboard(encryptedText);
+            if (m) {
+              onTextChange(m);
+            }
+          }}
+        />
         <IconButton icon="export-variant" disabled={!text} onPress={() => onShare(text)} />
         <IconButton
           icon="content-copy"
@@ -54,15 +63,6 @@ export default function EncryptText({
           }}
         />
         <IconButton
-          icon="content-paste"
-          onPress={async () => {
-            const m = await readFromClipboard(encryptedText);
-            if (m) {
-              onTextChange(m);
-            }
-          }}
-        />
-        <IconButton
           icon="close"
           disabled={!text}
           onPress={async () => {
@@ -71,9 +71,9 @@ export default function EncryptText({
         />
       </Box>
 
-      <Spacer />
+      <Spacer size={32} />
       <Divider />
-      <Spacer />
+      <Spacer size={32} />
 
       <Text variant="headlineLarge">Decrypt</Text>
       <Spacer size={8} />
@@ -88,6 +88,15 @@ export default function EncryptText({
           Decrypt
         </Button>
         <IconButton
+          icon="content-paste"
+          onPress={async () => {
+            const m = await readFromClipboard(encryptedText);
+            if (m) {
+              onEncryptedTextChange(m);
+            }
+          }}
+        />
+        <IconButton
           icon="export-variant"
           disabled={!encryptedText}
           onPress={() => onShare(encryptedText)}
@@ -99,15 +108,6 @@ export default function EncryptText({
             if (encryptedText) {
               copyToClipboard(encryptedText);
               onToast('Encrypted message is copied.');
-            }
-          }}
-        />
-        <IconButton
-          icon="content-paste"
-          onPress={async () => {
-            const m = await readFromClipboard(encryptedText);
-            if (m) {
-              onEncryptedTextChange(m);
             }
           }}
         />

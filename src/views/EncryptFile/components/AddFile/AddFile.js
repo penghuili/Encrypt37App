@@ -29,7 +29,7 @@ export default function AddFile({
             onPress: onPickImages,
           },
           {
-            icon: 'file-multiple',
+            icon: 'file',
             onPress: onPickFiles,
           },
           {

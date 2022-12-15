@@ -45,7 +45,8 @@ export const ENCRYPTION_SIZE_LIMIT_IN_BYTES = ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTE
 
 export const encryptionStatus = {
   SUCCEEDED: 'SUCCEEDED',
-  FAILED: 'FAILED',
+  ENCRYPT_FAILED: 'ENCRYPT_FAILED',
+  DECRYPT_FAILED: 'DECRYPT_FAILED',
   TOO_LARGE: 'TOO_LARGE',
   WRONG_FILE: 'WRONG_FILE',
 };
@@ -71,7 +72,7 @@ export async function encryptText(text, publicKey) {
     const encrypted = await OpenPGP.encrypt(text, armorPublicKey(publicKey));
     const unarmored = unarmor(encrypted);
 
-    return { data: `Encrypt37:${unarmored}`, error: null };
+    return { data: `e37:${unarmored}`, error: null };
   } catch (error) {
     console.log(error);
     return { data: null, error };
@@ -158,7 +159,7 @@ export async function encryptFiles(files, publicKey) {
         name,
         path,
         size,
-        status: encryptionStatus.FAILED,
+        status: encryptionStatus.ENCRYPT_FAILED,
       });
     }
   });
@@ -204,7 +205,7 @@ export async function decryptFiles(files, privateKey) {
         name,
         path,
         size,
-        status: encryptionStatus.FAILED,
+        status: encryptionStatus.DECRYPT_FAILED,
       });
     }
   });

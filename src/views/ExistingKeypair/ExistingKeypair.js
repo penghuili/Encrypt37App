@@ -64,8 +64,9 @@ export default function ExistingKeypair({
 
       {!!publicKey && !!privateKey && (
         <>
+          <Spacer size={32} />
           <Divider />
-          <Spacer />
+          <Spacer size={32} />
           <Box>
             <Button icon="check" mode="outlined" onPress={onFinish}>
               Finish

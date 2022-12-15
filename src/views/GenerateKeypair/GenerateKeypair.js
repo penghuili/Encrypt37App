@@ -52,21 +52,22 @@ export default function GenerateKeypair({
               }}
             />
           </Box>
-          <Spacer />
 
+          <Spacer size={32} />
           <Divider />
-          <Spacer />
+          <Spacer size={32} />
 
           <Text variant="bodySmall">
             You can share the public key with others, so they can encrypt something with your public
             key. Only you can decrypt it.
           </Text>
+          <Spacer />
           <Text variant="bodySmall">But NEVER SHARE YOUR PRIVATE KEY WITH ANYONE.</Text>
           <Spacer />
           <Text variant="bodySmall">Backup your key pair, save them to a password manager.</Text>
           <Spacer />
           <Box>
-            <Button mode="outlined" onPress={onFinish}>
+            <Button mode="contained" onPress={onFinish}>
               I have saved my key pair in a safe place
             </Button>
           </Box>

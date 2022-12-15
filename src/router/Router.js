@@ -3,6 +3,7 @@ import React from 'react';
 
 import LoadingScreen from '../components/LoadingScreen';
 import AddPublicKey from '../views/AddPublicKey';
+import ConfirmDeleteKeys from '../views/ConfirmDeleteKeys';
 import FriendPublicKey from '../views/FriendPublicKey';
 import FullKey from '../views/FullKey';
 import Keypairs from '../views/Keypairs';
@@ -30,6 +31,7 @@ function Router({ isPending, hasKeypair }) {
         <NavStack.Screen name={routeNames.fullKey} component={FullKey} />
         <NavStack.Screen name={routeNames.addPublicKey} component={AddPublicKey} />
         <NavStack.Screen name={routeNames.friendPublicKey} component={FriendPublicKey} />
+        <NavStack.Screen name={routeNames.confirmDeleteKeys} component={ConfirmDeleteKeys} />
       </NavStack.Group>
     </NavStack.Navigator>
   );
