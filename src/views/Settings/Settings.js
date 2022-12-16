@@ -8,7 +8,13 @@ import Link from '../../components/Link';
 import ListItem from '../../components/ListItem';
 import ScreenWrapper from '../../components/ScreenWrapper';
 
-export default function Settings({ cacheSize, onManageKeypairs, onReadCacheSize, onClearCache }) {
+export default function Settings({
+  cacheSize,
+  onManageKeypairs,
+  onChangeTheme,
+  onReadCacheSize,
+  onClearCache,
+}) {
   useFocusEffect(() => {
     onReadCacheSize();
   });
@@ -16,16 +22,19 @@ export default function Settings({ cacheSize, onManageKeypairs, onReadCacheSize,
   return (
     <ScreenWrapper title="Settings">
       <Box>
-        <ListItem space={16} onPress={onManageKeypairs}>
+        <ListItem space={24} onPress={onManageKeypairs}>
           Manage key pairs
         </ListItem>
-        <ListItem space={16}>
+        <ListItem space={24} onPress={onChangeTheme}>
+          Chagne theme
+        </ListItem>
+        <ListItem space={24}>
           <Box direction="row" align="center">
             <Text style={{ marginRight: 4 }}>Cache: {cacheSize}</Text>
             <Link onPress={onClearCache}>Clear</Link>
           </Box>
         </ListItem>
-        <ListItem space={16}>
+        <ListItem space={24}>
           <Text>
             v{DeviceInfo.getVersion()}({DeviceInfo.getBuildNumber()})
           </Text>

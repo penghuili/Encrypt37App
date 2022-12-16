@@ -6,6 +6,7 @@ export const LocalStorageKeys = {
   publicKeys: 'publicKeys',
   activePublicKey: 'activePublicKey',
   hasDoneBackup: 'hasDoneBackup',
+  theme: 'theme',
 };
 
 export const LocalStorage = {

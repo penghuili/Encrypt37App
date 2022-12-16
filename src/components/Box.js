@@ -21,6 +21,7 @@ function Box({
   mb,
   justify,
   align = 'flex-start',
+  bg,
 }) {
   return (
     <View
@@ -45,6 +46,8 @@ function Box({
 
         justify !== undefined && { justifyContent: justify },
         align !== undefined && { alignItems: align },
+
+        bg !== undefined && { backgroundColor: bg },
       ]}
     >
       {children}

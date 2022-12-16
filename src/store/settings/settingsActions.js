@@ -3,6 +3,8 @@ export const settingsActionTypes = {
   SET_CACHE_SIZE: 'settings/SET_CACHE_SIZE',
   CLEAR_CACHE_PRESSED: 'settings/CLEAR_CACHE_PRESSED',
   MANAGE_KEYPAIRS_PRESSED: 'settings/MANAGE_KEYPAIRS_PRESSED',
+  CHANGE_THEME_PRESSED: 'settings/CHANGE_THEME_PRESSED',
+  SAVE_THEME_PRESSED: 'settings/SAVE_THEME_PRESSED',
 };
 
 export const settingsActionCreators = {
@@ -17,5 +19,11 @@ export const settingsActionCreators = {
   },
   manageKeypairPressed() {
     return { type: settingsActionTypes.MANAGE_KEYPAIRS_PRESSED };
+  },
+  changeThemePressed() {
+    return { type: settingsActionTypes.CHANGE_THEME_PRESSED };
+  },
+  saveThemePressed(mode) {
+    return { type: settingsActionTypes.SAVE_THEME_PRESSED, payload: { mode } };
   },
 };

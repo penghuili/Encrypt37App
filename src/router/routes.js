@@ -10,4 +10,5 @@ export const routeNames = {
   addPublicKey: 'addPublicKey',
   friendPublicKey: 'friendPublicKey',
   confirmDeleteKeys: 'confirmDeleteKeys',
+  changeTheme: 'changeTheme',
 };
