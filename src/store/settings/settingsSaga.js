@@ -1,11 +1,18 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
+
 import { cachePath, emptyFolder, getFolderSize, getSizeText } from '../../lib/file';
 import { LocalStorage, LocalStorageKeys } from '../../lib/localstorage';
 import { navigationRef } from '../../router/navigationRef';
 import { routeNames } from '../../router/routes';
 import { fileActionCreators } from '../file/fileActions';
-
 import { settingsActionCreators, settingsActionTypes } from './settingsActions';
+
+function* initSettings() {
+  const mode = yield call(LocalStorage.get, LocalStorageKeys.theme);
+  if (mode) {
+    yield put(settingsActionCreators.setTheme(mode));
+  }
+}
 
 function* handleReadCacheSize() {
   const size = yield call(getFolderSize, cachePath);
@@ -29,9 +36,12 @@ function* handleChangeThemePressed() {
 
 function* handleSaveThemePressed({ payload: { mode } }) {
   yield call(LocalStorage.set, LocalStorageKeys.theme, mode);
+  yield put(settingsActionCreators.setTheme(mode));
 }
 
 export function* settingsSagas() {
+  yield fork(initSettings);
+
   yield all([
     takeLatest(settingsActionTypes.READ_CACHE_SIZE, handleReadCacheSize),
     takeLatest(settingsActionTypes.CLEAR_CACHE_PRESSED, handleClearCachePressed),

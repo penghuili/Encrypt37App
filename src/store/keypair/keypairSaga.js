@@ -8,7 +8,7 @@ import { toastActionCreators } from '../toast/toastActions';
 import { keypairActionCreators, keypairActionTypes } from './keypairActions';
 import { keypairSelectors } from './keypairSelectors';
 
-function* initApp() {
+function* initKeys() {
   const privateKey = yield call(LocalStorage.get, LocalStorageKeys.privateKey);
   if (privateKey) {
     yield put(keypairActionCreators.setPrivateKey(privateKey.trim()));
@@ -176,7 +176,7 @@ function* handleFriendPublicKeyPressed({ payload: { label, publicKey } }) {
 }
 
 export function* keypairSagas() {
-  yield fork(initApp);
+  yield fork(initKeys);
 
   yield all([
     takeLatest(

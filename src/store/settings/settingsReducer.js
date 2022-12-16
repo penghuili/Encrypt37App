@@ -10,7 +10,7 @@ function handleSetCacheSize(state, { size }) {
   return { ...state, cacheSize: size };
 }
 
-function handleSaveThemePressed(state, { mode }) {
+function handleSaveTheme(state, { mode }) {
   return { ...state, themeMode: mode };
 }
 
@@ -19,8 +19,8 @@ export function settingsReducer(state = initialState, action) {
     case settingsActionTypes.SET_CACHE_SIZE:
       return handleSetCacheSize(state, action.payload);
 
-    case settingsActionTypes.SAVE_THEME_PRESSED:
-      return handleSaveThemePressed(state, action.payload);
+    case settingsActionTypes.SET_THEME:
+      return handleSaveTheme(state, action.payload);
 
     default:
       return state;

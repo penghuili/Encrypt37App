@@ -5,6 +5,7 @@ export const settingsActionTypes = {
   MANAGE_KEYPAIRS_PRESSED: 'settings/MANAGE_KEYPAIRS_PRESSED',
   CHANGE_THEME_PRESSED: 'settings/CHANGE_THEME_PRESSED',
   SAVE_THEME_PRESSED: 'settings/SAVE_THEME_PRESSED',
+  SET_THEME: 'settings/SET_THEME',
 };
 
 export const settingsActionCreators = {
@@ -25,5 +26,8 @@ export const settingsActionCreators = {
   },
   saveThemePressed(mode) {
     return { type: settingsActionTypes.SAVE_THEME_PRESSED, payload: { mode } };
+  },
+  setTheme(mode) {
+    return { type: settingsActionTypes.SET_THEME, payload: { mode } };
   },
 };
