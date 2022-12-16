@@ -17,11 +17,11 @@ function BottomTab() {
 
   function getIconName(routeName, focused) {
     if (routeName === routeNames.text) {
-      return 'format-text-variant';
+      return focused ? 'message-text-lock' : 'message-text-lock-outline';
     } else if (routeName === routeNames.file) {
       return focused ? 'file-lock' : 'file-lock-outline';
     } else if (routeName === routeNames.settings) {
-      return focused ? 'cards-heart' : 'cards-heart-outline';
+      return focused ? 'cog' : 'cog-outline';
     } else {
       return null;
     }
