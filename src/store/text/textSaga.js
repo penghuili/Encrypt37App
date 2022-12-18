@@ -13,6 +13,17 @@ function* hanldeEncryptTextPressed({ payload: { text } }) {
   if (data) {
     yield put(textActionCreators.setEncryptedText(data));
     yield call(Keyboard.dismiss);
+
+    const activeKey = yield select(keypairSelectors.getActivePublicKeyLabel);
+    yield put(
+      toastActionCreators.setToast(
+        `Message is encrypted. ${
+          activeKey
+            ? `Share it with ${activeKey}, only ${activeKey} can decrypt.`
+            : 'Only you can depryt.'
+        }`
+      )
+    );
   } else {
     yield put(toastActionCreators.setToast('Encryption failed.'));
   }
@@ -22,7 +33,11 @@ function* hanldeDecryptTextPressed({ payload: { encryptedText } }) {
   const privateKey = yield select(keypairSelectors.getPrivateKey);
   const { data, error } = yield call(decryptText, encryptedText.trim(), privateKey);
   if (error) {
-    yield put(toastActionCreators.setToast('Decryption failed.'));
+    yield put(
+      toastActionCreators.setToast(
+        'Decryption failed. Make sure this message is encrypted with your public key.'
+      )
+    );
   } else {
     yield put(textActionCreators.setText(data));
   }

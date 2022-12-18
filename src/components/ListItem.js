@@ -9,7 +9,7 @@ function ListItem({ children, left, right, space = 8, onPress }) {
       <Box direction="row" align="center" justify="space-between" pr={8}>
         {left}
         <TouchableRipple onPress={onPress}>
-          {typeof children === 'string' ? <Text>{children}</Text> : children}
+          <>{typeof children === 'string' ? <Text>{children}</Text> : children}</>
         </TouchableRipple>
       </Box>
       {right}

@@ -53,7 +53,16 @@ function* handleEncryptPressed({ payload: { files } }) {
 
   const succeeded = encrypted.filter(f => f.status === encryptionStatus.SUCCEEDED);
   if (succeeded.length === files.length) {
-    yield put(toastActionCreators.setToast('All files are encrypted.'));
+    const activeKey = yield select(keypairSelectors.getActivePublicKeyLabel);
+    yield put(
+      toastActionCreators.setToast(
+        `All files are encrypted. ${
+          activeKey
+            ? `Share them with ${activeKey}, only ${activeKey} can decrypt.`
+            : 'Only you can depryt.'
+        }`
+      )
+    );
   } else {
     yield put(toastActionCreators.setToast('Some files have problems.'));
   }

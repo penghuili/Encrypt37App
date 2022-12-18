@@ -5,7 +5,7 @@ export default function Toast({ message, onClose }) {
   return (
     <Snackbar
       visible={!!message}
-      duration={5000}
+      duration={8000}
       action={{ label: 'Close', onPress: onClose }}
       onDismiss={onClose}
     >
