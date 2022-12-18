@@ -1,6 +1,6 @@
 # Encrypt37 - Encrypt and share
 
-End-to-end encrypt your texts and files, and get the raw result.
+End-to-end encrypt text and files, and get raw result.
 
 **Open source, no tracking and free forever.**
 

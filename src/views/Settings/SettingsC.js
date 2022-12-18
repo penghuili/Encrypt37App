@@ -13,8 +13,6 @@ const mapDispatchToProps = {
   onChangeTheme: settingsActionCreators.changeThemePressed,
   onReadCacheSize: settingsActionCreators.readCacheSize,
   onClearCache: settingsActionCreators.clearCachePressed,
-  onContact: settingsActionCreators.contactPressed,
-  onPrivacy: settingsActionCreators.privacyPressed,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
