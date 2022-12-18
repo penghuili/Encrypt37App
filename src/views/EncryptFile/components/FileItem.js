@@ -30,7 +30,7 @@ export default function FileItem({ file, onShare }) {
     <ListItem
       right={
         file.status === encryptionStatus.SUCCEEDED ? (
-          <IconButton icon="export-variant" size={16} onPress={() => onShare(file)} />
+          <IconButton icon="export-variant" onPress={() => onShare(file)} />
         ) : null
       }
     >
