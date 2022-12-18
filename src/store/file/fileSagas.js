@@ -4,6 +4,7 @@ import { encrypt37Extension } from '../../lib/constants';
 import { decryptFiles, encryptFiles, encryptionStatus } from '../../lib/encryption';
 import { deleteFiles, pickFiles, pickImages, shareFile, takePhoto } from '../../lib/file';
 import { keypairSelectors } from '../keypair/keypairSelectors';
+import { keypairActionTypes } from '../keypair/keypairActions';
 import { toastActionCreators } from '../toast/toastActions';
 import { fileActionCreators, fileActionTypes } from './fileActions';
 import { fileSelectors } from './fileSelectors';
@@ -113,7 +114,19 @@ export function* fileSagas() {
     takeLatest(fileActionTypes.PICK_ENCRYPTED_FILES_PRESSED, handlePickEncryptedFilesPressed),
     takeLatest(fileActionTypes.TAKE_PHOTO_PRESSED, handleTakePhotoPressed),
     takeLatest(fileActionTypes.PICK_ORIGINAL_FILES_PRESSED, handlePickOriginalFilesPressed),
-    takeLatest(fileActionTypes.CLEAR_PICKED_FILES_PRESSED, handleClearPickedFilesPressed),
-    takeLatest(fileActionTypes.CLEAR_ENCRYPTED_FILES_PRESSED, handleClearEncryptedFilesPressed),
+    takeLatest(
+      [
+        fileActionTypes.CLEAR_PICKED_FILES_PRESSED,
+        keypairActionTypes.CONFIRM_DELETE_KEYPAIR_PRESSED,
+      ],
+      handleClearPickedFilesPressed
+    ),
+    takeLatest(
+      [
+        fileActionTypes.CLEAR_ENCRYPTED_FILES_PRESSED,
+        keypairActionTypes.CONFIRM_DELETE_KEYPAIR_PRESSED,
+      ],
+      handleClearEncryptedFilesPressed
+    ),
   ]);
 }

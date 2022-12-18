@@ -3,6 +3,7 @@ import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { decryptText, encryptText } from '../../lib/encryption';
 import { shareText } from '../../lib/file';
+import { keypairActionTypes } from '../keypair/keypairActions';
 import { keypairSelectors } from '../keypair/keypairSelectors';
 import { toastActionCreators } from '../toast/toastActions';
 import { textActionCreators, textActionTypes } from './textActions';
@@ -50,10 +51,19 @@ function* handleShareTextPressed({ payload: { text } }) {
   }
 }
 
+function* handleConfirmDeleteKeypairPressed() {
+  yield put(textActionCreators.setEncryptedText(''));
+  yield put(textActionCreators.setText(''));
+}
+
 export function* textSagas() {
   yield all([
     takeLatest(textActionTypes.ENCRYPT_TEXT_PRESSED, hanldeEncryptTextPressed),
     takeLatest(textActionTypes.DECRYPT_TEXT_PRESSED, hanldeDecryptTextPressed),
     takeLatest(textActionTypes.SHARE_TEXT_PRESSED, handleShareTextPressed),
+    takeLatest(
+      keypairActionTypes.CONFIRM_DELETE_KEYPAIR_PRESSED,
+      handleConfirmDeleteKeypairPressed
+    ),
   ]);
 }
