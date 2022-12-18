@@ -6,6 +6,8 @@ export const settingsActionTypes = {
   CHANGE_THEME_PRESSED: 'settings/CHANGE_THEME_PRESSED',
   SAVE_THEME_PRESSED: 'settings/SAVE_THEME_PRESSED',
   SET_THEME: 'settings/SET_THEME',
+  CONTACT_PRESSED: 'settings/CONTACT_PRESSED',
+  PRIVACY_PRESSED: 'settings/PRIVACY_PRESSED',
 };
 
 export const settingsActionCreators = {
@@ -29,5 +31,11 @@ export const settingsActionCreators = {
   },
   setTheme(mode) {
     return { type: settingsActionTypes.SET_THEME, payload: { mode } };
+  },
+  contactPressed() {
+    return { type: settingsActionTypes.CONTACT_PRESSED };
+  },
+  privacyPressed() {
+    return { type: settingsActionTypes.PRIVACY_PRESSED };
   },
 };

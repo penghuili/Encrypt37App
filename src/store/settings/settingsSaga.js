@@ -1,3 +1,4 @@
+import { Linking } from 'react-native';
 import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
 
 import { cachePath, emptyFolder, getFolderSize, getSizeText } from '../../lib/file';
@@ -39,6 +40,17 @@ function* handleSaveThemePressed({ payload: { mode } }) {
   yield put(settingsActionCreators.setTheme(mode));
 }
 
+function* handleContactPressed() {
+  yield call(Linking.openURL, 'mailto:peng@duck.com');
+}
+
+function* handlePrivacyPressed() {
+  yield call(
+    Linking.openURL,
+    'https://github.com/penghuili/Encrypt37/blob/master/PRIVACYPOLICY.md'
+  );
+}
+
 export function* settingsSagas() {
   yield fork(initSettings);
 
@@ -48,5 +60,7 @@ export function* settingsSagas() {
     takeLatest(settingsActionTypes.MANAGE_KEYPAIRS_PRESSED, handleManageKeypairsPressed),
     takeLatest(settingsActionTypes.CHANGE_THEME_PRESSED, handleChangeThemePressed),
     takeLatest(settingsActionTypes.SAVE_THEME_PRESSED, handleSaveThemePressed),
+    takeLatest(settingsActionTypes.CONTACT_PRESSED, handleContactPressed),
+    takeLatest(settingsActionTypes.PRIVACY_PRESSED, handlePrivacyPressed),
   ]);
 }
