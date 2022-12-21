@@ -23,17 +23,20 @@ export default function AddFile({
         visible
         icon={isOpen ? 'close' : 'plus'}
         actions={[
-          { icon: 'camera', onPress: onTakePhoto },
+          { icon: 'camera', label: 'Take photo', onPress: onTakePhoto },
           {
             icon: 'image',
+            label: 'Pick images',
             onPress: onPickImages,
           },
           {
             icon: 'file',
+            label: 'Pick files',
             onPress: onPickFiles,
           },
           {
             icon: 'file-lock',
+            label: 'Pick files to decrypt',
             onPress: onPickEncryptedFiles,
           },
         ]}
