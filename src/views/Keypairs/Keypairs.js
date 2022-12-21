@@ -70,13 +70,11 @@ export default function Keypairs({
               <IconButton
                 icon="checkbox-marked-circle"
                 iconColor={theme.colors.primary}
-                size={16}
                 onPress={() => onChangeActivePublicKey(null)}
               />
             ) : (
               <IconButton
                 icon="checkbox-blank-circle-outline"
-                size={16}
                 onPress={() => onChangeActivePublicKey(item.label)}
               />
             )

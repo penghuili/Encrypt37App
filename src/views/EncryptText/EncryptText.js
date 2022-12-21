@@ -21,7 +21,7 @@ export default function EncryptText({
     <ScreenWrapper title="Encrypt text">
       <ActivePublicKey />
 
-      <Text variant="headlineLarge">Encrypt</Text>
+      <Text variant="headlineSmall">Encrypt</Text>
       <Spacer size={8} />
       <TextInput
         label="Message"
@@ -75,7 +75,7 @@ export default function EncryptText({
       <Divider />
       <Spacer size={32} />
 
-      <Text variant="headlineLarge">Decrypt</Text>
+      <Text variant="headlineSmall">Decrypt</Text>
       <Spacer size={8} />
       <Box direction="row" align="center">
         <Button

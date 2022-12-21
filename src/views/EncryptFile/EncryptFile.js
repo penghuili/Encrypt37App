@@ -27,7 +27,7 @@ export default function EncryptFile({
     <ScreenWrapper title="Encrypt file">
       <ActivePublicKey />
 
-      <Text variant="headlineLarge">Encrypt</Text>
+      <Text variant="headlineSmall">Encrypt</Text>
       <Text>Pick files to encrypt.</Text>
       <Spacer />
 
@@ -70,7 +70,7 @@ export default function EncryptFile({
       <Divider />
       <Spacer size={32} />
 
-      <Text variant="headlineLarge">Decrypt</Text>
+      <Text variant="headlineSmall">Decrypt</Text>
       <Text>Pick files to decrypt. Only pick files that end with .e37</Text>
       <Spacer />
 

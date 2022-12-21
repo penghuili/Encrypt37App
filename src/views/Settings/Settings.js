@@ -23,10 +23,10 @@ export default function Settings({
 
   return (
     <ScreenWrapper title="Settings">
-      <Text variant="headlineMedium">Encrypt37: Encrypt and share</Text>
+      <Text variant="headlineSmall">Encrypt37: Encrypt and share</Text>
       <Text>End-to-end encrypt text and files, and get raw result.</Text>
       <Spacer />
-      <Text variant="bodyLarge">Open source, no tracking and free forever.</Text>
+      <Text variant="bodyLarge">Open source, no tracking, free forever.</Text>
 
       <Spacer size={24} />
       <Divider />
