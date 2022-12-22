@@ -7,7 +7,7 @@ import FriendPublicKey from './FriendPublicKey';
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
-  onDelete: keypairActionCreators.deletePublicKeyPressed,
+  onDelete: keypairActionCreators.deleteFriendPublicKeyPressed,
   onToast: toastActionCreators.setToast,
 };
 

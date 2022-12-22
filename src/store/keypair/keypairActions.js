@@ -16,9 +16,9 @@ export const keypairActionTypes = {
   DELETE_KEYPAIR_PRESSED: 'keypair/DELETE_KEYPAIR_PRESSED',
   CONFIRM_DELETE_KEYPAIR_PRESSED: 'keypair/CONFIRM_DELETE_KEYPAIR_PRESSED',
   KEY_PRESSED: 'keypair/KEY_PRESSED',
-  ADD_PUBLIC_KEY_PRESSED: 'keypair/ADD_PUBLIC_KEY_PRESSED',
-  SAVE_PUBLIC_KEY_PRESSED: 'keypair/SAVE_PUBLIC_KEY_PRESSED',
-  DELETE_PUBLIC_KEY_PRESSED: 'keypair/DELETE_PUBLIC_KEY_PRESSED',
+  ADD_FRIEND_PUBLIC_KEY_PRESSED: 'keypair/ADD_FRIEND_PUBLIC_KEY_PRESSED',
+  SAVE_FRIEND_PUBLIC_KEY_PRESSED: 'keypair/SAVE_FRIEND_PUBLIC_KEY_PRESSED',
+  DELETE_FRIEND_PUBLIC_KEY_PRESSED: 'keypair/DELETE_FRIEND_PUBLIC_KEY_PRESSED',
   CHANGE_ACTIVE_PUBLIC_KEY_PRESSED: 'keypair/CHANGE_ACTIVE_PUBLIC_KEY_PRESSED',
   FRIEND_PUBLIC_KEY_PRESSED: 'keypair/FRIEND_PUBLIC_KEY_PRESSED',
 };
@@ -69,14 +69,17 @@ export const keypairActionCreators = {
   keyPressed(label, value) {
     return { type: keypairActionTypes.KEY_PRESSED, payload: { label, value } };
   },
-  addPublicKeyPressed() {
-    return { type: keypairActionTypes.ADD_PUBLIC_KEY_PRESSED };
+  addFriendPublicKeyPressed() {
+    return { type: keypairActionTypes.ADD_FRIEND_PUBLIC_KEY_PRESSED };
   },
-  savePublicKeyPressed(label, publicKey) {
-    return { type: keypairActionTypes.SAVE_PUBLIC_KEY_PRESSED, payload: { label, publicKey } };
+  saveFriendPublicKeyPressed(label, publicKey) {
+    return {
+      type: keypairActionTypes.SAVE_FRIEND_PUBLIC_KEY_PRESSED,
+      payload: { label, publicKey },
+    };
   },
-  deletePublicKeyPressed(label) {
-    return { type: keypairActionTypes.DELETE_PUBLIC_KEY_PRESSED, payload: { label } };
+  deleteFriendPublicKeyPressed(label) {
+    return { type: keypairActionTypes.DELETE_FRIEND_PUBLIC_KEY_PRESSED, payload: { label } };
   },
   setActivePublicKey(label) {
     return { type: keypairActionTypes.SET_ACTIVE_PUBLIC_KEY, payload: { label } };

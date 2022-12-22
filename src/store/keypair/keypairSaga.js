@@ -117,11 +117,11 @@ function* handleKeyPressed({ payload: { label, value } }) {
   yield call(navigationRef.navigate, routeNames.fullKey, { label, value });
 }
 
-function* handleAddPublicKeyPressed() {
+function* handleAddFriendPublicKeyPressed() {
   yield call(navigationRef.navigate, routeNames.addPublicKey);
 }
 
-function* handleSavePublicKeyPressed({ payload: { label, publicKey } }) {
+function* handleSaveFriendPublicKeyPressed({ payload: { label, publicKey } }) {
   const publicKeys = yield select(keypairSelectors.getPublicKeys);
   const trimmedLabel = label.trim();
   const isUsed = !!publicKeys.find(k => k.label === trimmedLabel);
@@ -146,7 +146,7 @@ function* handleSavePublicKeyPressed({ payload: { label, publicKey } }) {
   yield call(navigationRef.goBack);
 }
 
-function* handleDeletePublicKeyPressed({ payload: { label } }) {
+function* handleDeleteFriendPublicKeyPressed({ payload: { label } }) {
   const publicKeys = yield select(keypairSelectors.getPublicKeys);
   const newKeys = publicKeys.filter(p => p.label !== label);
   yield call(LocalStorage.set, LocalStorageKeys.publicKeys, newKeys);
@@ -201,9 +201,12 @@ export function* keypairSagas() {
     ),
     takeLatest(keypairActionTypes.FINISH_BACKUP_PRESSED, handleFinishBackupPressed),
     takeLatest(keypairActionTypes.KEY_PRESSED, handleKeyPressed),
-    takeLatest(keypairActionTypes.ADD_PUBLIC_KEY_PRESSED, handleAddPublicKeyPressed),
-    takeLatest(keypairActionTypes.SAVE_PUBLIC_KEY_PRESSED, handleSavePublicKeyPressed),
-    takeLatest(keypairActionTypes.DELETE_PUBLIC_KEY_PRESSED, handleDeletePublicKeyPressed),
+    takeLatest(keypairActionTypes.ADD_FRIEND_PUBLIC_KEY_PRESSED, handleAddFriendPublicKeyPressed),
+    takeLatest(keypairActionTypes.SAVE_FRIEND_PUBLIC_KEY_PRESSED, handleSaveFriendPublicKeyPressed),
+    takeLatest(
+      keypairActionTypes.DELETE_FRIEND_PUBLIC_KEY_PRESSED,
+      handleDeleteFriendPublicKeyPressed
+    ),
     takeLatest(
       keypairActionTypes.CHANGE_ACTIVE_PUBLIC_KEY_PRESSED,
       handleChangeActivePublicKeyPressed

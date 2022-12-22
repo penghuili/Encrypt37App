@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   onDeleteKeypair: keypairActionCreators.deleteKeypairPressed,
-  onAddPublicKey: keypairActionCreators.addPublicKeyPressed,
+  onAddPublicKey: keypairActionCreators.addFriendPublicKeyPressed,
   onChangeActivePublicKey: keypairActionCreators.changeActivePublicKeyPressed,
   onFriendPublicKeyPress: keypairActionCreators.friendPublicKeyPressed,
 };

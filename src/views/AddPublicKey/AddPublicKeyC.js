@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onSave: keypairActionCreators.savePublicKeyPressed,
+  onSave: keypairActionCreators.saveFriendPublicKeyPressed,
   onToast: toastActionCreators.setToast,
 };
 
