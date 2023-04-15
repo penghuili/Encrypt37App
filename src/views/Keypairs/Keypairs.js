@@ -91,6 +91,10 @@ export default function Keypairs({
           </Text>
         </>
       )}
+
+      <Spacer size={32} />
+      <Divider />
+      <Spacer size={32} />
     </ScreenWrapper>
   );
 }

@@ -144,7 +144,11 @@ export async function encryptFiles(files, publicKey) {
     const encryptedName = getEncryptedFileName(name);
     const outputPath = `${cachePath}/${encryptedName}`;
     await deleteFile(outputPath);
-    const success = await encryptFile(inputPath, outputPath, armorPublicKey(publicKey));
+    const success = await encryptFile(
+      decodeURIComponent(inputPath),
+      outputPath,
+      armorPublicKey(publicKey)
+    );
 
     if (success) {
       const { size: newSize } = await statFile(outputPath);

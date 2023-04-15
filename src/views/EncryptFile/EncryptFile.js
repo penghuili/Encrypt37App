@@ -23,6 +23,7 @@ export default function EncryptFile({
 
   const hasPickedFiles = !!pickedFiles.images.length || !!pickedFiles.files.length;
   const hasEncryptedFiles = !!encryptedFiles?.length;
+
   return (
     <ScreenWrapper title="Encrypt file">
       <ActivePublicKey />
