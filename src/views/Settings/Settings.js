@@ -53,10 +53,10 @@ export default function Settings({
           Contact:{' '}
           <Link
             onPress={() => {
-              Linking.openURL('mailto:peng@duck.com');
+              Linking.openURL('mailto:peng37@proton.me');
             }}
           >
-            peng@duck.com
+            peng37@proton.me
           </Link>
         </Text>
       </ListItem>
