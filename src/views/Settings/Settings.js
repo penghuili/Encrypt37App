@@ -9,13 +9,14 @@ import Link from '../../components/Link';
 import ListItem from '../../components/ListItem';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
+import { routeNames } from '../../router/routes';
 
 export default function Settings({
   cacheSize,
-  onManageKeypairs,
   onChangeTheme,
   onReadCacheSize,
   onClearCache,
+  onNavigate,
 }) {
   useFocusEffect(() => {
     onReadCacheSize();
@@ -32,10 +33,13 @@ export default function Settings({
       <Divider />
       <Spacer size={24} />
 
-      <ListItem space={24} onPress={onManageKeypairs}>
+      <ListItem space={24} onPress={() => onNavigate(routeNames.keypairs)}>
         Manage key pairs
       </ListItem>
-      <ListItem space={24} onPress={onChangeTheme}>
+      <ListItem space={24} onPress={() => onNavigate(routeNames.keypairGenerator)}>
+        Key pair generator
+      </ListItem>
+      <ListItem space={24} onPress={() => onNavigate(routeNames.changeTheme)}>
         Chagne theme
       </ListItem>
       <ListItem space={24}>

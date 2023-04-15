@@ -7,6 +7,9 @@ const initialState = {
   activePublicKey: null,
   isPending: true,
   hasDoneBackup: false,
+
+  newPrivateKey: '',
+  newPublicKey: '',
 };
 
 function handleSetPrivateKey(state, { privateKey }) {
@@ -33,6 +36,14 @@ function handleSetActivePublicKey(state, { label }) {
   return { ...state, activePublicKey: label };
 }
 
+function handleSetNewPrivateKey(state, { privateKey }) {
+  return { ...state, newPrivateKey: privateKey };
+}
+
+function handleSetNewPublicKey(state, { publicKey }) {
+  return { ...state, newPublicKey: publicKey };
+}
+
 export function keypairReducer(state = initialState, action) {
   switch (action.type) {
     case keypairActionTypes.SET_PRIVATE_KEY:
@@ -40,6 +51,12 @@ export function keypairReducer(state = initialState, action) {
 
     case keypairActionTypes.SET_PUBLIC_KEY:
       return handleSetPublicKey(state, action.payload);
+
+    case keypairActionTypes.SET_NEW_PRIVATE_KEY:
+      return handleSetNewPrivateKey(state, action.payload);
+
+    case keypairActionTypes.SET_NEW_PUBLIC_KEY:
+      return handleSetNewPublicKey(state, action.payload);
 
     case keypairActionTypes.SET_PUBLIC_KEYS:
       return handleSetPublicKeys(state, action.payload);

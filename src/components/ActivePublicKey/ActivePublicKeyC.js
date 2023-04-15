@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onChange: settingsActionCreators.manageKeypairPressed,
+  onNavigate: settingsActionCreators.navigate,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActivePublicKey);

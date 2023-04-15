@@ -7,6 +7,7 @@ import ChangeTheme from '../views/ChangeTheme';
 import ConfirmDeleteKeys from '../views/ConfirmDeleteKeys';
 import FriendPublicKey from '../views/FriendPublicKey';
 import FullKey from '../views/FullKey';
+import KeypairGenerator from '../views/KeypairGenerator';
 import Keypairs from '../views/Keypairs';
 import BottomTab from './BottomTab';
 import { routeNames } from './routes';
@@ -34,6 +35,7 @@ function Router({ isPending, hasKeypair }) {
         <NavStack.Screen name={routeNames.friendPublicKey} component={FriendPublicKey} />
         <NavStack.Screen name={routeNames.confirmDeleteKeys} component={ConfirmDeleteKeys} />
         <NavStack.Screen name={routeNames.changeTheme} component={ChangeTheme} />
+        <NavStack.Screen name={routeNames.keypairGenerator} component={KeypairGenerator} />
       </NavStack.Group>
     </NavStack.Navigator>
   );

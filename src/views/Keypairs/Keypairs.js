@@ -7,16 +7,15 @@ import KeyItem from '../../components/KeyItem';
 import ListItem from '../../components/ListItem';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
+import { routeNames } from '../../router/routes';
 
 export default function Keypairs({
   publicKey,
   privateKey,
   publicKeys,
   activePublicKey,
-  onDeleteKeypair,
-  onAddPublicKey,
+  onNavigate,
   onChangeActivePublicKey,
-  onFriendPublicKeyPress,
 }) {
   const theme = useTheme();
 
@@ -44,7 +43,7 @@ export default function Keypairs({
           mode="contained"
           icon="delete"
           buttonColor={theme.colors.error}
-          onPress={onDeleteKeypair}
+          onPress={() => onNavigate(routeNames.confirmDeleteKeys)}
         >
           Delete
         </Button>
@@ -57,14 +56,16 @@ export default function Keypairs({
       <Text variant="headlineMedium">My friends' public keys</Text>
       <Spacer />
       <Box>
-        <Button mode="outlined" icon="plus" onPress={onAddPublicKey}>
+        <Button mode="outlined" icon="plus" onPress={() => onNavigate(routeNames.addPublicKey)}>
           Add public key
         </Button>
       </Box>
       {publicKeys.map(item => (
         <ListItem
           key={item.label}
-          onPress={() => onFriendPublicKeyPress(item.label, item.publicKey)}
+          onPress={() =>
+            onNavigate(routeNames.friendPublicKey, { label: item.label, publicKey: item.publicKey })
+          }
           left={
             activePublicKey === item.label ? (
               <IconButton

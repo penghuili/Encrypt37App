@@ -1,11 +1,17 @@
 import React from 'react';
 import { Text } from 'react-native-paper';
 
-function KeyItem({ label, value, onPress }) {
+import { routeNames } from '../../router/routes';
+
+function KeyItem({ label, value, onNavigate }) {
   return (
     <>
       <Text variant="bodyLarge">{label}</Text>
-      <Text variant="bodySmall" numberOfLines={1} onPress={() => onPress(label, value)}>
+      <Text
+        variant="bodySmall"
+        numberOfLines={1}
+        onPress={() => onNavigate(routeNames.fullKey, { label, value })}
+      >
         {value}
       </Text>
     </>

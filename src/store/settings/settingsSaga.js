@@ -3,7 +3,6 @@ import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
 import { cachePath, emptyFolder, getFolderSize, getSizeText } from '../../lib/file';
 import { LocalStorage, LocalStorageKeys } from '../../lib/localstorage';
 import { navigationRef } from '../../router/navigationRef';
-import { routeNames } from '../../router/routes';
 import { fileActionCreators } from '../file/fileActions';
 import { settingsActionCreators, settingsActionTypes } from './settingsActions';
 
@@ -26,17 +25,13 @@ function* handleClearCachePressed() {
   yield put(fileActionCreators.setEncryptedFiles([]));
 }
 
-function* handleManageKeypairsPressed() {
-  yield call(navigationRef.navigate, routeNames.keypairs);
-}
-
-function* handleChangeThemePressed() {
-  yield call(navigationRef.navigate, routeNames.changeTheme);
-}
-
 function* handleSaveThemePressed({ payload: { mode } }) {
   yield call(LocalStorage.set, LocalStorageKeys.theme, mode);
   yield put(settingsActionCreators.setTheme(mode));
+}
+
+function* handleNavigate({ payload: { routeName, params } }) {
+  yield call(navigationRef.navigate, routeName, params);
 }
 
 export function* settingsSagas() {
@@ -45,8 +40,7 @@ export function* settingsSagas() {
   yield all([
     takeLatest(settingsActionTypes.READ_CACHE_SIZE, handleReadCacheSize),
     takeLatest(settingsActionTypes.CLEAR_CACHE_PRESSED, handleClearCachePressed),
-    takeLatest(settingsActionTypes.MANAGE_KEYPAIRS_PRESSED, handleManageKeypairsPressed),
-    takeLatest(settingsActionTypes.CHANGE_THEME_PRESSED, handleChangeThemePressed),
     takeLatest(settingsActionTypes.SAVE_THEME_PRESSED, handleSaveThemePressed),
+    takeLatest(settingsActionTypes.NAVIGATE, handleNavigate),
   ]);
 }

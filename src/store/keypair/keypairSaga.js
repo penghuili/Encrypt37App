@@ -3,7 +3,6 @@ import { all, call, fork, put, select, takeLatest } from 'redux-saga/effects';
 import { decryptText, encryptText, generateKeyPair, isValidPublicKey } from '../../lib/encryption';
 import { LocalStorage, LocalStorageKeys } from '../../lib/localstorage';
 import { navigationRef } from '../../router/navigationRef';
-import { routeNames } from '../../router/routes';
 import { toastActionCreators } from '../toast/toastActions';
 import { keypairActionCreators, keypairActionTypes } from './keypairActions';
 import { keypairSelectors } from './keypairSelectors';
@@ -33,14 +32,6 @@ function* initKeys() {
   yield put(keypairActionCreators.setBackup(!!hasDoneBackup));
 
   yield put(keypairActionCreators.finishLoading());
-}
-
-function* handleNavigateToNewKeypairPressed() {
-  yield call(navigationRef.navigate, routeNames.newKeypair);
-}
-
-function* handleNavigateToExistingKeypairPressed() {
-  yield call(navigationRef.navigate, routeNames.existingKeypair);
 }
 
 function* handlePastePublicKeyPressed({ payload: { publicKey } }) {
@@ -89,8 +80,10 @@ function* handleGenerateKeypairPressed() {
   yield put(keypairActionCreators.setPublicKey(keypair.publicKey));
 }
 
-function* handleDeleteKeypairPressed() {
-  yield call(navigationRef.navigate, routeNames.confirmDeleteKeys);
+function* handleGenerateNewKeypairPressed() {
+  const keypair = yield call(generateKeyPair);
+  yield put(keypairActionCreators.setNewPrivateKey(keypair.privateKey));
+  yield put(keypairActionCreators.setNewPublicKey(keypair.publicKey));
 }
 
 function* handleConfirmDeleteKeypairPressed() {
@@ -111,14 +104,6 @@ function* handleConfirmDeleteKeypairPressed() {
 function* handleFinishBackupPressed() {
   yield call(LocalStorage.set, LocalStorageKeys.hasDoneBackup, true);
   yield put(keypairActionCreators.setBackup(true));
-}
-
-function* handleKeyPressed({ payload: { label, value } }) {
-  yield call(navigationRef.navigate, routeNames.fullKey, { label, value });
-}
-
-function* handleAddFriendPublicKeyPressed() {
-  yield call(navigationRef.navigate, routeNames.addPublicKey);
 }
 
 function* handleSaveFriendPublicKeyPressed({ payload: { label, publicKey } }) {
@@ -171,22 +156,10 @@ function* handleChangeActivePublicKeyPressed({ payload: { label } }) {
   }
 }
 
-function* handleFriendPublicKeyPressed({ payload: { label, publicKey } }) {
-  yield call(navigationRef.navigate, routeNames.friendPublicKey, { label, publicKey });
-}
-
 export function* keypairSagas() {
   yield fork(initKeys);
 
   yield all([
-    takeLatest(
-      keypairActionTypes.NAVIGATE_TO_NEW_KEYPAIR_PRESSED,
-      handleNavigateToNewKeypairPressed
-    ),
-    takeLatest(
-      keypairActionTypes.NAVIGATE_TO_EXISTING_KEYPAIR_PRESSED,
-      handleNavigateToExistingKeypairPressed
-    ),
     takeLatest(keypairActionTypes.PASTE_PUBLIC_KEY_PRESSED, handlePastePublicKeyPressed),
     takeLatest(keypairActionTypes.PASTE_PRIVATE_KEY_PRESSED, handlePastePrivateKeyPressed),
     takeLatest(
@@ -194,14 +167,12 @@ export function* keypairSagas() {
       handleFinishAddExistingKeypairPressed
     ),
     takeLatest(keypairActionTypes.GENERATE_KEYPAIR_PRESSED, handleGenerateKeypairPressed),
-    takeLatest(keypairActionTypes.DELETE_KEYPAIR_PRESSED, handleDeleteKeypairPressed),
+    takeLatest(keypairActionTypes.GENERATE_NEW_KEYPAIR_PRESSED, handleGenerateNewKeypairPressed),
     takeLatest(
       keypairActionTypes.CONFIRM_DELETE_KEYPAIR_PRESSED,
       handleConfirmDeleteKeypairPressed
     ),
     takeLatest(keypairActionTypes.FINISH_BACKUP_PRESSED, handleFinishBackupPressed),
-    takeLatest(keypairActionTypes.KEY_PRESSED, handleKeyPressed),
-    takeLatest(keypairActionTypes.ADD_FRIEND_PUBLIC_KEY_PRESSED, handleAddFriendPublicKeyPressed),
     takeLatest(keypairActionTypes.SAVE_FRIEND_PUBLIC_KEY_PRESSED, handleSaveFriendPublicKeyPressed),
     takeLatest(
       keypairActionTypes.DELETE_FRIEND_PUBLIC_KEY_PRESSED,
@@ -211,6 +182,5 @@ export function* keypairSagas() {
       keypairActionTypes.CHANGE_ACTIVE_PUBLIC_KEY_PRESSED,
       handleChangeActivePublicKeyPressed
     ),
-    takeLatest(keypairActionTypes.FRIEND_PUBLIC_KEY_PRESSED, handleFriendPublicKeyPressed),
   ]);
 }

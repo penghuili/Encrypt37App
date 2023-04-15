@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
 
-import { keypairActionCreators } from '../../store/keypair/keypairActions';
+import { settingsActionCreators } from '../../store/settings/settingsActions';
 import KeypairIntro from './KeypairIntro';
 
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
-  onNewKeypair: keypairActionCreators.navigateToNewKeypairPressed,
-  onExistingKeypair: keypairActionCreators.navigateToExistingKeypairPressed,
+  onNavigate: settingsActionCreators.navigate,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(KeypairIntro);

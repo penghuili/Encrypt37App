@@ -9,10 +9,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onManageKeypairs: settingsActionCreators.manageKeypairPressed,
-  onChangeTheme: settingsActionCreators.changeThemePressed,
   onReadCacheSize: settingsActionCreators.readCacheSize,
   onClearCache: settingsActionCreators.clearCachePressed,
+  onNavigate: settingsActionCreators.navigate,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { keypairActionCreators } from '../../store/keypair/keypairActions';
 import { keypairSelectors } from '../../store/keypair/keypairSelectors';
 import Keypairs from './Keypairs';
+import { settingsActionCreators } from '../../store/settings/settingsActions';
 
 const mapStateToProps = state => ({
   publicKey: keypairSelectors.getPublicKey(state),
@@ -12,10 +13,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onDeleteKeypair: keypairActionCreators.deleteKeypairPressed,
-  onAddPublicKey: keypairActionCreators.addFriendPublicKeyPressed,
+  onNavigate: settingsActionCreators.navigate,
   onChangeActivePublicKey: keypairActionCreators.changeActivePublicKeyPressed,
-  onFriendPublicKeyPress: keypairActionCreators.friendPublicKeyPressed,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Keypairs);
