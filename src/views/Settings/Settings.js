@@ -11,13 +11,7 @@ import ScreenWrapper from '../../components/ScreenWrapper';
 import Spacer from '../../components/Spacer';
 import { routeNames } from '../../router/routes';
 
-export default function Settings({
-  cacheSize,
-  onChangeTheme,
-  onReadCacheSize,
-  onClearCache,
-  onNavigate,
-}) {
+export default function Settings({ cacheSize, onReadCacheSize, onClearCache, onNavigate }) {
   useFocusEffect(() => {
     onReadCacheSize();
   });
@@ -87,6 +81,31 @@ export default function Settings({
         <Text>
           v{DeviceInfo.getVersion()}({DeviceInfo.getBuildNumber()})
         </Text>
+      </ListItem>
+
+      <Divider />
+      <Spacer size={24} />
+
+      <ListItem space={12}>
+        <Text variant="bodyLarge">Something else from me:</Text>
+      </ListItem>
+      <ListItem space={12}>
+        <Link
+          onPress={() => {
+            Linking.openURL('https://www.peng.kiwi/link37/');
+          }}
+        >
+          Link37: Your browser's start page, encrypted.
+        </Link>
+      </ListItem>
+      <ListItem space={12}>
+        <Link
+          onPress={() => {
+            Linking.openURL('https://watcher37.peng.kiwi/');
+          }}
+        >
+          Watcher37: Get notified when web pages change, encrypted.
+        </Link>
       </ListItem>
     </ScreenWrapper>
   );
