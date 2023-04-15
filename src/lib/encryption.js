@@ -40,7 +40,7 @@ ${removePrefix(unarmored)}
 -----END PGP PUBLIC KEY BLOCK-----`;
 }
 
-export const ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES = 50;
+export const ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES = 200;
 export const ENCRYPTION_SIZE_LIMIT_IN_BYTES = ENCRYPTION_SIZE_LIMIT_IN_MEGA_BYTES * 1024 * 1024;
 
 export const encryptionStatus = {
