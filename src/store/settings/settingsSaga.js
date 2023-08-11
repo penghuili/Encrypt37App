@@ -7,10 +7,10 @@ import { fileActionCreators } from '../file/fileActions';
 import { settingsActionCreators, settingsActionTypes } from './settingsActions';
 
 function* initSettings() {
-  const mode = yield call(LocalStorage.get, LocalStorageKeys.theme);
-  if (mode) {
-    yield put(settingsActionCreators.setTheme(mode));
-  }
+  // const mode = yield call(LocalStorage.get, LocalStorageKeys.theme);
+  // if (mode) {
+  //   yield put(settingsActionCreators.setTheme(mode));
+  // }
 }
 
 function* handleReadCacheSize() {

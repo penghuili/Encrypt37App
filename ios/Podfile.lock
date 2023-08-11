@@ -500,7 +500,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 5e5497c844f2381e8648ec3a7d0ad25b3f27f23e
   React-logger: b277ad8f4473f2506fb30b762b6348534a3de10e
   react-native-document-picker: 958e2bc82e128be69055be261aeac8d872c8d34c
-  react-native-fast-openpgp: 781bdf98b94ca9dc46ce597434f6eed5fd816944
+  react-native-fast-openpgp: ad2d832dd01009c644e0d7d130c79bd85da18a12
   react-native-image-picker: ec9b713e248760bfa0f879f0715391de4651a7cb
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   React-perflogger: e9249a18e055cae96fdf685bf6145cbea62506c8
@@ -525,4 +525,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c5bd7ca7b68f022f22a6b6147fd939b4496e313d
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.12.1
