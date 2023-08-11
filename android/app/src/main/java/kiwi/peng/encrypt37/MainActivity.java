@@ -1,4 +1,4 @@
-package com.encrypt37;
+package kiwi.peng.encrypt37;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;

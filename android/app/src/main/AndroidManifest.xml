@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.encrypt37">
+  package="kiwi.peng.encrypt37">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
