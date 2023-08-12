@@ -92,19 +92,28 @@ export default function Settings({ cacheSize, onReadCacheSize, onClearCache, onN
       <ListItem space={12}>
         <Link
           onPress={() => {
-            Linking.openURL('https://www.peng.kiwi/link37/');
+            Linking.openURL('https://note.peng37.com/');
           }}
         >
-          Link37: Your browser's start page, encrypted.
+          Note37: Rich text notes. Encrypted.
         </Link>
       </ListItem>
       <ListItem space={12}>
         <Link
           onPress={() => {
-            Linking.openURL('https://watcher37.peng.kiwi/');
+            Linking.openURL('https://peng37.com/link37/');
           }}
         >
-          Watcher37: Get notified when web pages change, encrypted.
+          Link37: Your browser's start page. Encrypted.
+        </Link>
+      </ListItem>
+      <ListItem space={12}>
+        <Link
+          onPress={() => {
+            Linking.openURL('https://watcher.peng37.com/');
+          }}
+        >
+          Watcher37: Get notified when web pages change. Encrypted.
         </Link>
       </ListItem>
     </ScreenWrapper>
