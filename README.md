@@ -20,7 +20,7 @@ You can safely upload the encrypted texts or files to wherever you want, making 
 
 ---
 
-Write to me: peng@duck.com
+Write to me: peng37@proton.me
 
 ---
 

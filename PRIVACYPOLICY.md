@@ -6,4 +6,4 @@ Encrypt37 has no tracking, it's open sourced, you can check the code [here](http
 
 All your texts and files are encrypted with your & your fiends's keypair's public via [react-native-fast-openpgp](https://github.com/jerson/react-native-fast-openpgp).
 
-Contact me for anything: peng@duck.com
+Contact me for anything: peng37@proton.me
