@@ -20,10 +20,10 @@ You can safely upload the encrypted texts or files to wherever you want, making 
 
 ---
 
-Write to me: peng37@proton.me
+Write to me: peng@tuta.com
 
 ---
 
 ## Donate
 
-❤️ Consider donating to this free and open source app: [Ko-Fi](https://ko-fi.com/penghuili) or [PayPal](https://paypal.me/penghuili/)
+❤️ Donate to this free and open source app: [beer](https://buy.stripe.com/14k3fYcz633kb2oeV1)
